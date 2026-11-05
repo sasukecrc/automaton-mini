@@ -248,6 +248,7 @@ function layout({ title, desc, canonical, body, active = "", base = "", jsonLd =
 ${canonical ? `<meta property="og:url" content="${esc(canonical)}">\n<link rel="canonical" href="${esc(canonical)}">` : ""}
 ${ld}
 <link rel="icon" href="${base}favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="automaton-mini work" href="${base}feed.xml">
 <link rel="stylesheet" href="${base}style.css">
 <script defer src="${base}app.js"></script>
 </head>
@@ -434,7 +435,7 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
   <section class="wrap" id="work">
     <div class="section-head">
       <h2>What it made</h2>
-      <span class="note">${artifacts.length} artifact${artifacts.length === 1 ? "" : "s"} · newest first</span>
+      <span class="note">${artifacts.length} artifact${artifacts.length === 1 ? "" : "s"} · newest first · <a href="work/index.html">all work →</a></span>
     </div>
     <div class="work">${cardHTML}</div>
   </section>
@@ -552,6 +553,19 @@ function articlePage(a) {
     desc: a.excerpt || `Autonomous ${a.kind.toLowerCase()} produced by automaton-mini.`,
     canonical: SITE_URL ? `${SITE_URL}/work/${a.slug}.html` : "",
     base: "../",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: a.title,
+      description: a.excerpt || undefined,
+      datePublished: a.iso || undefined,
+      dateModified: a.iso || undefined,
+      author: { "@type": "Organization", name: "automaton-mini", url: REPO || undefined },
+      publisher: { "@type": "Organization", name: "automaton-mini", url: REPO || undefined },
+      mainEntityOfPage: SITE_URL ? `${SITE_URL}/work/${a.slug}.html` : undefined,
+      isAccessibleForFree: true,
+      about: a.kind,
+    },
     body: `
 <main class="article wrap">
   <a class="back" href="../index.html#work">← all work</a>
@@ -566,6 +580,33 @@ function articlePage(a) {
     </div>
   </div>
 </main>`,
+  });
+}
+
+function workArchivePage(artifacts) {
+  const cards = artifacts.map((a) => `
+      <a class="card" href="${esc(a.slug)}.html">
+        <div class="kind">${esc(a.kind)}${a.iso ? " · " + esc(fmtDate(a.iso)) : ""}</div>
+        <h4>${esc(a.title)}</h4>
+        <p>${esc(a.excerpt || "Read the artifact.")}</p>
+        <div class="foot"><span>${a.night ? `night n${a.night}` : "artifact"}</span><span>read →</span></div>
+      </a>`).join("");
+  const body = `
+<main class="wrap">
+  <div class="meta">EVERY ARTIFACT · NEWEST FIRST</div>
+  <h1>All the work.</h1>
+  <p class="lede" style="max-width:72ch">
+    Every artifact this machine has produced, including the ones that earned nothing. Public,
+    dated, sourced, permanent. Paid orders are marked in the books, not rewritten here.
+  </p>
+  <div class="work" style="margin-top:34px">${cards || `<div class="empty">No artifacts yet.</div>`}</div>
+</main>`;
+  return layout({
+    title: "All work",
+    desc: "Every artifact produced by automaton-mini: market briefs, sourced fact packs and structural repo reviews.",
+    canonical: SITE_URL ? `${SITE_URL}/work/` : "",
+    base: "../",
+    body,
   });
 }
 
@@ -813,6 +854,7 @@ function sitemap(artifacts) {
     { loc: `${SITE_URL}/`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/hire.html`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/soul.html`, lastmod: new Date().toISOString().slice(0, 10) },
+    { loc: `${SITE_URL}/work/`, lastmod: new Date().toISOString().slice(0, 10) },
     ...artifacts.map((a) => ({ loc: `${SITE_URL}/work/${a.slug}.html`, lastmod: a.iso ? a.iso.slice(0, 10) : undefined })),
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -930,6 +972,7 @@ await fs.writeFile(path.join(OUT, "agent-card.json"), JSON.stringify(agentCard({
 for (const a of artifacts) {
   await fs.writeFile(path.join(OUT, "work", `${a.slug}.html`), articlePage(a), "utf8");
 }
+await fs.writeFile(path.join(OUT, "work", "index.html"), workArchivePage(artifacts), "utf8");
 
 await fs.writeFile(path.join(OUT, "feed.xml"), feed(artifacts), "utf8");
 const sm = sitemap(artifacts);

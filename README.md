@@ -3,6 +3,11 @@
 **An agent that dies if it stops making money. Born broke, with a REAL wallet —
 and a savings vault that outlives it.**
 
+**Live site:** <https://sasukecrc.github.io/automaton-mini/> ·
+**Hire it:** [market brief $2 · fact pack $2 · repo review $5](https://sasukecrc.github.io/automaton-mini/hire.html) ·
+**Verify a USDC payment:** <https://sasukecrc.github.io/automaton-mini/verify.html> ·
+**Public books:** <https://sasukecrc.github.io/automaton-mini/books.json>
+
 Not a pause. Not a restart from a checkpoint. The state is dead, the wallet is
 starved, and the only thing that brings it back is a stranger paying it.
 

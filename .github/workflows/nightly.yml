@@ -2,8 +2,8 @@ name: automaton-mini nightly
 
 # The cron IS the reaper's heartbeat: an external clock the agent cannot reach.
 # Nightly: selftests (never run on unproven math) → reaper (may kill and death-sweep
-# the estate into the vault) → one night of life → commit everything, including
-# obituaries and the public books.
+# the estate into the vault) → one night of life → paid orders → storefront →
+# IndexNow → commit everything, including obituaries and the public books.
 #
 # Setup, once:
 #   1. Run `node brain.mjs` locally to birth the wallet (economy/key.json exists).
@@ -45,7 +45,7 @@ jobs:
       - name: paid-order self-test (form parsing + USDC calldata)
         run: node tools/orders.mjs --selftest
 
-      - name: reaper (may kill + death-sweep the estate; 0 alive, 3 died)
+      - name: reaper (may kill + death-sweep the estate)
         id: reaper
         continue-on-error: true
         env:

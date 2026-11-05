@@ -9,3 +9,8 @@
 {"r":"n3","kind":"artifact","micro":5000,"meta":"market brief n3","t":"2026-11-02T06:44:12.274Z"}
 {"r":"n3","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T06:44:12.277Z"}
 {"r":"n3","kind":"artifact","micro":5000,"meta":"fact-pack history|Silk Road","t":"2026-11-02T06:44:12.818Z"}
+{"r":"n4","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-05T14:00:43.629Z"}
+{"r":"n4","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-05T14:00:43.630Z"}
+{"r":"n4","kind":"artifact","micro":5000,"meta":"market brief n4","t":"2026-11-05T14:00:44.188Z"}
+{"r":"n4","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-05T14:00:44.188Z"}
+{"r":"n4","kind":"artifact","micro":5000,"meta":"fact-pack biology|Axolotl","t":"2026-11-05T14:00:44.289Z"}

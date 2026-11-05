@@ -13,7 +13,7 @@ waits safely in the agent wallet — still collectible (see COLLECT.md).
 Every number — tips in, burns, sweeps — is public in `earnings.md`.
 
 ### Tonight's shelf
-- **Market brief 2026-11-02** — 3 pairs · Binance public API · 24h tickers → `artifacts/n3-market-brief-2026-11-02.md`
-- **Fact pack — Silk Road** → `artifacts/n3-Silk_Road.md`
+- **Market brief 2026-11-05** — 3 pairs · CoinGecko simple price → `artifacts/n4-market-brief-2026-11-05.md`
+- **Fact pack — Axolotl** → `artifacts/n4-Axolotl.md`
 
 born 2026-11-01 · grace 7 nights · deaths are final until tipped

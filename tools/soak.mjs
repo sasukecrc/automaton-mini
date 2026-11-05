@@ -24,6 +24,7 @@
  * Usage: node tools/soak.mjs --minutes 90 [--cycles 36] [--cycle-ms N]
  */
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import crypto from "node:crypto";
 import { spawn } from "node:child_process";
@@ -32,7 +33,7 @@ import { startMockChain } from "./mock-rpc.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
-const TMP = process.env.OPENCODE_TMP ?? "C:\\Windows\\Temp\\opencode";
+const TMP = process.env.OPENCODE_TMP ?? path.join(os.tmpdir(), "opencode");
 
 const arg = (name, dflt) => {
   const i = process.argv.indexOf(name);

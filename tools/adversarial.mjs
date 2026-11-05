@@ -24,6 +24,7 @@
  * Exit 0 = every defense held.
  */
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -32,7 +33,7 @@ import * as wal from "../lib/wallet.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "..");
-const TMP = process.env.OPENCODE_TMP ?? "C:\\Windows\\Temp\\opencode";
+const TMP = process.env.OPENCODE_TMP ?? path.join(os.tmpdir(), "opencode");
 const DAY = 86_400_000;
 
 const today = new Date();

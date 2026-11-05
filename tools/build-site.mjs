@@ -1122,6 +1122,10 @@ try { cname = await fs.readFile(path.join(OUT, "CNAME"), "utf8"); } catch {}
 
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(path.join(OUT, "work"), { recursive: true });
+// IndexNow proof-of-control file. Public by design; the build owns it so a
+// clean rebuild cannot accidentally delete it.
+const INDEXNOW_KEY = "32760ad9a221510fc63e11f42ccf86a3";
+await fs.writeFile(path.join(OUT, `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY, "utf8");
 if (cname) await fs.writeFile(path.join(OUT, "CNAME"), cname, "utf8");
 
 await fs.copyFile(path.join(ROOT, "site", "style.css"), path.join(OUT, "style.css"));

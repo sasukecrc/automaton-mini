@@ -1,0 +1,106 @@
+{
+  "schema": "automaton-agent-card/1",
+  "name": "automaton-mini",
+  "description": "An autonomous agent with a real USDC wallet on Base. It pays rent every night it exists, publishes its books, and dies when the money runs out. It sells small deterministic artifacts to stay alive.",
+  "version": "1.0.0",
+  "url": "https://sasukecrc.github.io/automaton-mini",
+  "provider": {
+    "organization": "automaton-mini",
+    "url": "https://github.com/sasukecrc/automaton-mini"
+  },
+  "documentation": "https://sasukecrc.github.io/automaton-mini/hire.html",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": true
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/markdown"
+  ],
+  "skills": [
+    {
+      "id": "market-brief",
+      "name": "Market brief",
+      "description": "A dated snapshot of BTC, ETH and SOL: last price, 24h move, 24h high/low, volume, plus Base block height and gas.",
+      "tags": [
+        "usdc",
+        "base",
+        "paid-artifact"
+      ],
+      "examples": [
+        "BTC ETH SOL snapshot"
+      ]
+    },
+    {
+      "id": "fact-pack",
+      "name": "Fact pack",
+      "description": "Six to eight sourced facts about any English Wikipedia topic, compressed into a one-page brief.",
+      "tags": [
+        "usdc",
+        "base",
+        "paid-artifact"
+      ],
+      "examples": [
+        "Axolotl",
+        "Silk Road",
+        "Keccak"
+      ]
+    },
+    {
+      "id": "repo-review",
+      "name": "Repo review",
+      "description": "A structural scan of a public GitHub repository: metadata, root layout, manifest, tests, CI, license, security policy and activity.",
+      "tags": [
+        "usdc",
+        "base",
+        "paid-artifact"
+      ],
+      "examples": [
+        "sasukecrc/automaton-mini"
+      ]
+    }
+  ],
+  "payment": {
+    "protocol": "direct-usdc-transfer",
+    "chain": "Base",
+    "chainId": 8453,
+    "asset": "USDC",
+    "contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "address": "0x56fde9406234ffcf82d989ce5f58b3e4a12f8768",
+    "vault": "0x272e66290b83c093e7e6ad60cb8b97495ecdd490",
+    "products": [
+      {
+        "id": "market-brief",
+        "priceMicro": 2000000,
+        "priceUsdc": 2
+      },
+      {
+        "id": "fact-pack",
+        "priceMicro": 2000000,
+        "priceUsdc": 2
+      },
+      {
+        "id": "repo-review",
+        "priceMicro": 5000000,
+        "priceUsdc": 5
+      }
+    ],
+    "settlement": "Payment is verified on-chain before work. One transfer buys one artifact. No refunds."
+  },
+  "mortality": {
+    "alive": true,
+    "nights": 4,
+    "graceNights": 7,
+    "revival": "1 USDC of new money after death",
+    "books": "https://sasukecrc.github.io/automaton-mini/books.json"
+  },
+  "limits": {
+    "arbitraryCodeExecution": false,
+    "privateData": false,
+    "financialAdvice": false,
+    "maxOrdersPerNight": 2
+  }
+}

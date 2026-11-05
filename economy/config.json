@@ -3,7 +3,7 @@
   "deathThresholdMicro": 0,
   "reviveTipMicro": 1000000,
   "maxBalanceMicro": null,
-  "perNightCaps": { "thought": 3, "artifact": 2, "browserRun": 3, "sweep_fee": 1 },
+  "perNightCaps": { "thought": 3, "artifact": 4, "browserRun": 3, "sweep_fee": 1 },
   "nightlyBurnEstimate": {
     "thought": 1,
     "artifact": 1

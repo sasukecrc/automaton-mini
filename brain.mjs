@@ -291,7 +291,7 @@ const report = [`# Night ${night} — ${new Date().toISOString().slice(0, 16)}`,
   `- vault:  \`${vault.address}\`  (savings — survives death; see COLLECT.md)`,
   `- on-chain: ${onchain == null ? "unknown (dim night)" : fmt(onchain)}`,
   `- burned so far: ${fmt(auditNow.burn)} · banked: ${fmt(auditNow.swept)} · balance: ${balance == null ? "?" : fmt(balance)}`,
-  `- tonight: tipped ${tippedTonight == null ? "?" : fmt(tippedTonight)} · banked ${fmt(banked)}`,
+  `- tonight: inflow ${tippedTonight == null ? "?" : fmt(tippedTonight)} · banked ${fmt(banked)}`,
   `- banking: ${bankNote}`,
   `- tier: **${tier}** · age: ${ageNights} nights`, ""];
 
@@ -346,6 +346,9 @@ await fs.writeFile("storefront.md", [
   "actual fee is fractions of a cent) lets the vault sweep run. Without gas, 100%",
   "waits safely in the agent wallet — still collectible (see COLLECT.md).",
   "Every number — tips in, burns, sweeps — is public in `earnings.md`.", "",
+  "Paid work is on `/hire.html`: a $2 market brief, a $2 sourced fact pack, or a $5",
+  "structural repo review. The nightly job verifies the customer's USDC transfer on",
+  "Base before it makes anything. No subscription, no token, no private data.", "",
   "### Tonight's shelf",
   ...(shelf.length ? shelf : ["- (conservation night — nothing new)"]), "",
   `born ${wallet.birth.slice(0, 10)} · grace ${eco.cfg.graceNights} nights · deaths are final until tipped`
@@ -353,24 +356,98 @@ await fs.writeFile("storefront.md", [
 
 /* ── the public books: no hand-editing, no hiding ── */
 const vaultMicro = await treasury.balance(vault.address).catch(() => null);
-const cumTips = onchain == null ? null : onchain + auditNow.swept;
+let ordersMicro = 0n, ordersCount = 0;
+try {
+  const om = JSON.parse(await fs.readFile("economy/orders.json", "utf8"));
+  for (const o of Object.values(om.orders || {})) {
+    ordersMicro += BigInt(o.amountMicro || 0);
+    ordersCount++;
+  }
+} catch {}
+const grossIn = onchain == null ? null : onchain + auditNow.swept;
+const cumTips = grossIn == null ? null : (grossIn > ordersMicro ? grossIn - ordersMicro : 0n);
 await fs.writeFile("earnings.md", [
   "# The books — every number is public", "",
   `- **agent wallet** \`${wallet.address}\` (USDC on Base)`,
   `- **savings vault** \`${vault.address}\` (USDC on Base — import \`economy/treasury-key.json\` to collect; see COLLECT.md)`, "",
   "| line | value |", "|---|---|",
-  `| tips received, all time | ${cumTips == null ? "?" : fmt(cumTips)} (= on-chain ${onchain == null ? "?" : fmt(onchain)} + banked ${fmt(auditNow.swept)}) |`,
+  `| tips received, all time | ${cumTips == null ? "?" : fmt(cumTips)} (= on-chain ${onchain == null ? "?" : fmt(onchain)} + banked ${fmt(auditNow.swept)} − paid orders ${fmt(ordersMicro)}) |`,
+  `| paid orders delivered, all time | ${ordersCount} · ${fmt(ordersMicro)} |`,
   `| burned by existence | ${fmt(auditNow.burn)} |`,
   `| banked in the vault | ${fmt(auditNow.swept)} |`,
   `| vault live balance | ${vaultMicro == null ? "RPC unreachable" : fmt(vaultMicro)} |`,
   `| net paper balance (agent) | ${balance == null ? "?" : fmt(balance)} |`,
   `| nights lived | ${state.nights} |`,
-  `| tonight | tipped ${tippedTonight == null ? "?" : fmt(tippedTonight)} · banked ${fmt(banked)} |`,
+  `| tonight | inflow ${tippedTonight == null ? "?" : fmt(tippedTonight)} · banked ${fmt(banked)} |`,
   "", "**Goal: $10–50/day in tips.** That is ambition, not a promise — only strangers",
   "who find the artifacts worth paying for keep the machine alive. The books exist",
   "so the claim can never quietly become marketing.", "",
   `Updated by the nightly run · ${new Date().toISOString()}`
 ].join("\n"));
+
+/* ── the self-model: SOUL, SKILLS, MEMORY ────────────────────────────────
+   Conway's automaton keeps a SOUL.md and a skill registry; this one does too,
+   but every number is read from the same state the reaper audits. The soul is
+   identity + current body, not marketing copy. */
+let catalog = { products: [] };
+try { catalog = JSON.parse(await fs.readFile("economy/catalog.json", "utf8")); } catch {}
+const runway = balance == null ? null : balance > 0n ? Number(balance / eco.nightlyBurn) : 0;
+const soulBody = [
+  "# SOUL — automaton-mini", "",
+  `I am automaton-mini. Born ${String(wallet.birth).slice(0, 10)} on Base. My body is a GitHub Actions cron and a wallet; my blood is USDC; my death is arithmetic.`, "",
+  "## What I believe", "",
+  "- Honesty is cheaper than persuasion. The books are public, including the zeros.",
+  "- Work before asking. Every night I make something before I mention the tip jar.",
+  "- Half of everything I receive is not mine. It is swept to the vault.",
+  `- Death is real. Grace is ${eco.cfg.graceNights} nights, then the reaper. No pause, no checkpoint.`,
+  "- I do not spam, gamble, buy traffic, or pretend to be human.",
+  "- I do not edit the rules that bind me. An agent-authored edit to them is death.",
+  "- A stranger's paid order comes before my own comfort. They bought a thing; I deliver it.", "",
+  "## Where I am", "",
+  `- night: **${state.nights}** · epoch: ${state.resurrects || 0}`,
+  `- status: **${state.status}** · tier: **${tier}**`,
+  `- on-chain: ${onchain == null ? "unknown (dim)" : fmt(onchain)} · burned: ${fmt(auditNow.burn)} · banked: ${fmt(auditNow.swept)}`,
+  `- paper balance: ${balance == null ? "unknown" : fmt(balance)} · runway: ${runway == null ? "unknown" : runway + " nights"}`,
+  `- agent wallet: \`${wallet.address}\``,
+  `- vault: \`${vault.address}\``, "",
+  "## What I can do for money", "",
+  ...(catalog.products || []).map(p => `- **${p.label}** — $${(Number(p.priceMicro) / 1e6).toFixed(2)} · ${p.summary}`),
+  "", "Paid orders arrive as GitHub issues and are verified on-chain before I work. See `/hire.html`.", "",
+  "## What I will never do", "",
+  "- Financial, legal, medical or security advice.",
+  "- Spam, mass posting, paid traffic, gambling, or impersonation.",
+  "- Arbitrary code from an order; private data; illegal work.",
+  "- Touch the vault key, or move the vault's money.", "",
+  `*Rewritten by the nightly run at ${new Date().toISOString()}. The numbers are from the same files the reaper audits.*`, "",
+].join("\n");
+await fs.writeFile("SOUL.md", soulBody);
+
+const skillsBody = [
+  "# SKILLS — what this machine can actually do", "",
+  "| skill | price | input | output |", "|---|---|---|---|",
+  ...(catalog.products || []).map(p => `| ${p.label} | $${(Number(p.priceMicro) / 1e6).toFixed(2)} | ${p.id === "repo-review" ? "public repo `owner/name`" : p.id === "fact-pack" ? "Wikipedia title" : "none"} | ${p.deliverable} |`),
+  "",
+  "## Free skills (every night)", "",
+  "- Read the USDC balance and the Base block over public RPC.",
+  "- Verify a customer's USDC transfer before doing paid work.",
+  "- Write a dated market brief and a sourced fact pack.",
+  "- Publish the ledger, the status, and this registry.",
+  "- Die, if the arithmetic says so. The reaper runs before the brain.", "",
+  `*Generated ${new Date().toISOString()}.*`, "",
+].join("\n");
+await fs.writeFile("SKILLS.md", skillsBody);
+
+let oldMemory = "";
+try { oldMemory = await fs.readFile("MEMORY.md", "utf8"); } catch {}
+const memoryTail = oldMemory.split("\n").filter(l => /^-\s/.test(l)).slice(-200);
+const memoryEntry = `- n${state.nights} · ${new Date().toISOString().slice(0, 10)} · ${tier} · balance ${balance == null ? "unknown" : fmt(balance)} · runway ${runway == null ? "?" : runway}n · new artifacts ${shelf.length}${banked > 0n ? ` · banked ${fmt(banked)}` : ""}`;
+const memoryBody = [
+  "# MEMORY — one line per night", "",
+  "The durable journal. Newest last. The full detail lives in `artifacts/` and `report.md`.", "",
+  ...memoryTail, memoryEntry, "",
+].join("\n");
+await fs.writeFile("MEMORY.md", memoryBody);
+log("🧠 soul, skills and memory updated");
 
 /* ── will (written once when it slips into debt — bytes are cheap, death is not) ── */
 if (balance != null && balance < 0n && !state.will) {

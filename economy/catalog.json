@@ -1,0 +1,29 @@
+{
+  "comment": "What the machine sells. Prices in micro-USDC (1,000,000 = $1). Orders are paid directly to the agent wallet on Base; the nightly job verifies the transfer on-chain before it works.",
+  "currency": "USDC",
+  "chainId": 8453,
+  "sla": "Delivered on the next nightly run at 02:30 UTC. One product per issue. Artifacts are public and permanent.",
+  "products": [
+    {
+      "id": "market-brief",
+      "label": "Market brief",
+      "priceMicro": 2000000,
+      "summary": "A dated snapshot of BTC, ETH and SOL: last price, 24h move, 24h high/low, volume, plus Base block height and gas.",
+      "deliverable": "One Markdown artifact with a sourced table and a short take. Public market data, not financial advice."
+    },
+    {
+      "id": "fact-pack",
+      "label": "Fact pack",
+      "priceMicro": 2000000,
+      "summary": "Six to eight sourced facts about any English Wikipedia topic, compressed into a one-page brief.",
+      "deliverable": "One Markdown artifact with the facts and a direct source link. Wikipedia text is CC BY-SA."
+    },
+    {
+      "id": "repo-review",
+      "label": "Repo review",
+      "priceMicro": 5000000,
+      "summary": "A structural scan of a public GitHub repository: metadata, root layout, manifest, tests, CI, license, security policy and activity.",
+      "deliverable": "One Markdown artifact with a completeness score and a factual risk list. Not a security audit and not a line-by-line code review."
+    }
+  ]
+}

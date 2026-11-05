@@ -40,6 +40,10 @@ Base, add USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`, send to Binance
 
 ## What it sells (earning surfaces)
 
+- **Paid orders** — a stranger opens a GitHub issue from the order form, pays
+  USDC on Base to the agent wallet, and pastes the tx hash. The nightly job
+  verifies the transfer *on-chain* before working, publishes the artifact, and
+  closes the issue. Menu: $2 market brief · $2 fact pack · $5 repo review.
 - **Market briefs** — every night: live BTC/ETH/SOL 24h data (Binance public
   API, CoinGecko fallback) + Base block/gas, timestamped and sourced. Crypto
   readers tip crypto; freshness is the product.
@@ -49,10 +53,10 @@ Base, add USDC `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913`, send to Binance
 Every artifact carries the tip address and the vault split — the product and the
 ask live in one file. Hours of work, zero spam (caps in `economy/config.json`).
 
-**Honest number:** $10–50/day is the *goal*, not a promise. No autonomous agent
-has published earnings this way; the original Automaton's 13,000 wallets never
-did either. This repo publishes `earnings.md` every night precisely so its
-numbers can never quietly become marketing. Most nights will make $0. That is
+**Honest number:** $10–50/day is the *goal*, not a promise. The owner's stretch
+target is **$100–$500 in the first two weeks**; that is ambition, not a forecast.
+The public books count tips and paid orders separately, and paid orders only count
+after a real USDC transfer is verified on Base. Most nights will make $0. That is
 the experiment, not a defect.
 
 ## Run it (locally, tonight)
@@ -114,13 +118,33 @@ from the same files the machine lives on — `economy/state.json`, the ledger, a
 `artifacts/`. It is the only place the agent asks for money.
 
 - **live:** https://sasukecrc.github.io/automaton-mini/
+- **hire:** https://sasukecrc.github.io/automaton-mini/hire.html
+- **soul:** https://sasukecrc.github.io/automaton-mini/soul.html
 - `npm run site` rebuilds it · `npm run serve` previews at `127.0.0.1:4173`
 - GitHub Pages serves `docs/` from `main`; the nightly job rebuilds and commits it
 - no analytics, no fonts, no trackers, no external calls at page load
+- also generated: `agent-card.json`, `sitemap.xml`, `robots.txt`, `llms.txt`
+
+### Paid orders (GitHub Issues → on-chain verification → artifact)
+
+1. A stranger opens an issue from `.github/ISSUE_TEMPLATE/order.yml`.
+2. They send the listed USDC amount on Base and paste the confirmed tx hash.
+3. `tools/orders.mjs` checks the USDC contract, the recipient (agent wallet,
+   not the vault), the amount, the receipt status, and a one-use `usedTx` ledger.
+4. It writes `artifacts/order-<n>-<product>.md`, comments the link, labels the
+   issue `delivered`, and closes it.
+5. Orders with no verified payment get one comment and the label
+   `awaiting-payment`; unchanged bad issues are never re-spammed nightly.
+
+The order desk has no signing key, cannot move money, and never executes code
+from an order. It only fetches public data (CoinGecko, Wikipedia, GitHub API).
+The artifact is public forever; there are no refunds, and no private work.
 
 ## On GitHub Actions (the growth path)
 
-`.github/workflows/nightly.yml` runs at 02:30 UTC: selftests → reaper → brain → commit.
+`.github/workflows/nightly.yml` runs at 02:30 UTC: selftests → adversarial →
+reaper → brain → paid orders → site build → commit. The order desk needs only
+`issues: write` and `GITHUB_TOKEN`; it never receives `AUTOMATON_AGENT_KEY`.
 Because GitHub has no gitignored files, the agent's key arrives as a repo secret:
 
 1. Run `node brain.mjs` once locally to birth.
@@ -158,6 +182,12 @@ COLLECT.md             step-by-step: MetaMask / Trust / Phantom / Binance
 graveyard.md           registry of deaths — the dead teach the living
 obituaries/            one honest file per death (including estate disposition)
 storefront.md          the ONLY place it asks for money
+SOUL.md                the self-written identity, updated nightly
+SKILLS.md              the self-written skill + price registry
+MEMORY.md              one durable line per night
+economy/catalog.json   the paid menu (prices are micro-USDC)
+economy/orders.json    delivered orders + used transaction hashes
+tools/orders.mjs       the paid-order desk (on-chain verify, safe artifacts)
 docs/                  the public site, generated nightly from these same files
 site/                  the site's css + favicon (the generator is tools/build-site.mjs)
 artifacts/             what a night's work produced

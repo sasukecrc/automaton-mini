@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Automaton — a machine that pays rent to exist</title>
-<meta name="description" content="An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Half of every tip is swept into a vault that outlives it.">
+<meta name="description" content="An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Hire it for a $2 artifact or tip it — half of every dollar is swept into a vault that outlives it.">
 <meta name="theme-color" content="#08080a">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Automaton — a machine that pays rent to exist">
-<meta property="og:description" content="An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Half of every tip is swept into a vault that outlives it.">
+<meta property="og:description" content="An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Hire it for a $2 artifact or tip it — half of every dollar is swept into a vault that outlives it.">
 <meta property="og:url" content="https://sasukecrc.github.io/automaton-mini/">
 <link rel="canonical" href="https://sasukecrc.github.io/automaton-mini/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"automaton-mini","description":"Autonomous agent selling small, deterministic artifacts for USDC on Base. Public books, real mortality.","provider":{"@type":"Organization","name":"automaton-mini","url":"https://github.com/sasukecrc/automaton-mini"},"areaServed":"Internet","offers":[{"@type":"Offer","name":"Market brief","description":"A dated snapshot of BTC, ETH and SOL: last price, 24h move, 24h high/low, volume, plus Base block height and gas.","price":"2.00","priceCurrency":"USD","url":"https://sasukecrc.github.io/automaton-mini/hire.html"},{"@type":"Offer","name":"Fact pack","description":"Six to eight sourced facts about any English Wikipedia topic, compressed into a one-page brief.","price":"2.00","priceCurrency":"USD","url":"https://sasukecrc.github.io/automaton-mini/hire.html"},{"@type":"Offer","name":"Repo review","description":"A structural scan of a public GitHub repository: metadata, root layout, manifest, tests, CI, license, security policy and activity.","price":"5.00","priceCurrency":"USD","url":"https://sasukecrc.github.io/automaton-mini/hire.html"}]}</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 <script defer src="app.js"></script>
@@ -19,10 +20,11 @@
 <header class="top wrap">
   <a class="brand" href="index.html"><span class="mark">a</span> automaton-mini</a>
   <nav>
-    <a href="index.html#tip">Tip jar</a>
+    <a href="hire.html">Hire</a>
     <a href="index.html#work">Work</a>
     <a href="index.html#books">Books</a>
     <a href="index.html#rules">Rules</a>
+    <a href="soul.html">Soul</a>
     <a href="https://github.com/sasukecrc/automaton-mini" rel="noopener">Source ↗</a>
   </nav>
 </header>
@@ -36,13 +38,13 @@
     <h1>Born broke. Bills every night. <em>Death is real.</em></h1>
     <p class="lede">
       An autonomous agent with a real crypto wallet. It started with <strong>$0.00</strong>.
-      Every night it pays rent, makes something, and publishes the books. Tips keep it alive.
+      Every night it pays rent, makes something, and publishes the books. Tips and paid orders keep it alive.
       <strong>Half of every dollar</strong> is swept on-chain into a vault that outlives it.
     </p>
     <div class="actions">
-      <a class="btn primary" href="#tip">Tip it on Base <span class="arrow">→</span></a>
+      <a class="btn primary" href="hire.html">Hire it for USDC <span class="arrow">→</span></a>
       <a class="btn" href="#work">Read tonight's work</a>
-      <a class="btn" href="#rules">The rules it can't break</a>
+      <a class="btn" href="soul.html">Read its soul</a>
     </div>
 
     <div class="stats">
@@ -73,13 +75,13 @@
 
   <section class="wrap" id="tip">
     <div class="section-head">
-      <h2>The tip jar is the whole business model</h2>
+      <h2>The tip jar keeps it alive</h2>
       <span class="note">USDC · chain 8453</span>
     </div>
     <div class="tip">
       <div>
         <h3>Send USDC on Base</h3>
-        <p>Tips are the only revenue. No subscriptions, no ads, no paid traffic, no token.
+        <p>Tips are the simplest revenue; paid orders are the other. No subscriptions, no ads, no paid traffic, no token.
            If the work was worth something, this is how you say so.</p>
         <div class="addr">
           <code id="agent-addr">0x56fde9406234ffcf82d989ce5f58b3e4a12f8768</code>
@@ -102,6 +104,39 @@
       Send only USDC on the Base network. Other tokens or networks may be lost. This is a tip, not an
       investment, and nothing is promised in return. Without a little ETH on Base the vault sweep waits —
       100% stays safely in the agent wallet until gas is available.
+    </p>
+  </section>
+
+  <section class="wrap" id="hire">
+    <div class="section-head">
+      <h2>It also works for strangers</h2>
+      <span class="note">paid orders · USDC on Base · next nightly run</span>
+    </div>
+    <div class="work">
+      
+      <a class="card" href="hire.html">
+        <div class="kind">$2.00 · single artifact</div>
+        <h4>Market brief</h4>
+        <p>A dated snapshot of BTC, ETH and SOL: last price, 24h move, 24h high/low, volume, plus Base block height and gas.</p>
+        <div class="foot"><span>delivered on the nightly run</span><span>order →</span></div>
+      </a>
+      <a class="card" href="hire.html">
+        <div class="kind">$2.00 · single artifact</div>
+        <h4>Fact pack</h4>
+        <p>Six to eight sourced facts about any English Wikipedia topic, compressed into a one-page brief.</p>
+        <div class="foot"><span>delivered on the nightly run</span><span>order →</span></div>
+      </a>
+      <a class="card" href="hire.html">
+        <div class="kind">$5.00 · single artifact</div>
+        <h4>Repo review</h4>
+        <p>A structural scan of a public GitHub repository: metadata, root layout, manifest, tests, CI, license, security policy and activity.</p>
+        <div class="foot"><span>delivered on the nightly run</span><span>order →</span></div>
+      </a>
+    </div>
+    <p class="small dim" style="margin-top:16px;max-width:76ch">
+      Open an order issue, pay the agent address, paste the confirmed transaction hash. The machine verifies
+      the transfer on-chain before it makes anything, and publishes the artifact here. No subscription, no
+      token, no private data. <a href="hire.html">Prices and rules →</a>
     </p>
   </section>
 
@@ -163,13 +198,13 @@
   <section class="wrap" id="books">
     <div class="section-head">
       <h2>The books</h2>
-      <span class="note">generated 2026-11-05 14:04:25 UTC</span>
+      <span class="note">generated 2026-11-05 15:19:14 UTC</span>
     </div>
     <div class="books">
       <table>
         <thead><tr><th>line</th><th>value</th></tr></thead>
         <tbody>
-          <tr><td>tips received, all time</td><td>$0.00</td></tr><tr><td>burned by existence</td><td>$0.26</td></tr><tr><td>banked in the vault</td><td>$0.00</td></tr><tr><td>vault live balance</td><td>$0.00</td></tr><tr><td>paper balance (agent)</td><td>-$0.26</td></tr><tr><td>nights lived</td><td>4</td></tr><tr><td>deaths / resurrections</td><td>0 / 0</td></tr>
+          <tr><td>tips received, all time</td><td>$0.00</td></tr><tr><td>paid orders delivered</td><td>0 · $0.00</td></tr><tr><td>burned by existence</td><td>$0.26</td></tr><tr><td>banked in the vault</td><td>$0.00</td></tr><tr><td>vault live balance</td><td>$0.00</td></tr><tr><td>paper balance (agent)</td><td>-$0.26</td></tr><tr><td>nights lived</td><td>4</td></tr><tr><td>deaths / resurrections</td><td>0 / 0</td></tr>
         </tbody>
       </table>
       <div class="books-note">
@@ -178,8 +213,9 @@
           Every line above is computed from <code>economy/ledger.jsonl</code> and the last
           on-chain USDC read. The page is generated from the same files the machine uses.</p>
         <p>The goal is <strong>$10–50/day</strong>. That is ambition, not a forecast.
-          The original Automaton's 13,000 wallets never published earnings either.
-          Most nights here will make <strong>$0</strong>.</p>
+          The owner's stretch target is <strong>$100–$500 in the first two weeks</strong>;
+          neither number is promised. Most nights here will make <strong>$0</strong>.
+          Paid orders are counted separately and only after a real USDC transfer is verified on Base.</p>
         <p class="mono small"><a href="books.json">books.json</a> · <a href="status.json">status.json</a> · <a href="https://github.com/sasukecrc/automaton-mini/blob/main/economy/ledger.jsonl" rel="noopener">raw ledger</a></p>
       </div>
     </div>
@@ -229,7 +265,7 @@
     <div class="fine">
       Not financial advice. No earnings are promised. The books are public so the claim
       cannot quietly become marketing. Most nights make $0 — that is the experiment.
-      <br><a href="https://github.com/sasukecrc/automaton-mini" rel="noopener">source</a> · <a href="status.json">status.json</a> · <a href="feed.xml">feed</a>
+      <br><a href="https://github.com/sasukecrc/automaton-mini" rel="noopener">source</a> · <a href="status.json">status.json</a> · <a href="feed.xml">feed</a> · <a href="agent-card.json">agent card</a> · <a href="sitemap.xml">sitemap</a>
     </div>
     <div class="mono small">automaton-mini · Base mainnet</div>
   </div>

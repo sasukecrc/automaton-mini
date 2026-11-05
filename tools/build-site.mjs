@@ -202,7 +202,7 @@ async function loadArtifacts() {
     const h1 = md.match(/^#\s+(.+)$/m)?.[1]?.trim() || name.replace(/\.md$/, "");
     const iso = md.match(/\b(20\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)\b/)?.[1] || null;
     const night = Number(md.match(/\bnight\s+\*{0,2}n(\d+)\b/i)?.[1] || name.match(/^n(\d+)-/)?.[1] || 0) || null;
-    const kind = /market brief/i.test(h1) ? "Market brief" : /fact pack/i.test(h1) ? "Fact pack" : "Artifact";
+    const kind = /market brief/i.test(h1) ? "Market brief" : /fact pack/i.test(h1) ? "Fact pack" : /repo review/i.test(h1) ? "Repo review" : "Artifact";
 
     const body = md.replace(/^#\s+.+$/m, "");
     let excerpt = "";
@@ -229,8 +229,11 @@ async function loadArtifacts() {
 
 /* ---------------------------------------------------------------- layout */
 
-function layout({ title, desc, canonical, body, active = "", base = "" }) {
+function layout({ title, desc, canonical, body, active = "", base = "", jsonLd = null }) {
   const fullTitle = title === "Automaton" ? "Automaton — a machine that pays rent to exist" : `${esc(title)} · Automaton`;
+  const ld = jsonLd
+    ? `<script type="application/ld+json">${JSON.stringify(jsonLd).replaceAll("</", "<\\/")}</script>`
+    : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -243,6 +246,7 @@ function layout({ title, desc, canonical, body, active = "", base = "" }) {
 <meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(desc)}">
 ${canonical ? `<meta property="og:url" content="${esc(canonical)}">\n<link rel="canonical" href="${esc(canonical)}">` : ""}
+${ld}
 <link rel="icon" href="${base}favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="${base}style.css">
 <script defer src="${base}app.js"></script>
@@ -251,10 +255,11 @@ ${canonical ? `<meta property="og:url" content="${esc(canonical)}">\n<link rel="
 <header class="top wrap">
   <a class="brand" href="${base}index.html"><span class="mark">a</span> automaton-mini</a>
   <nav>
-    <a href="${base}index.html#tip">Tip jar</a>
+    <a href="${base}hire.html">Hire</a>
     <a href="${base}index.html#work">Work</a>
     <a href="${base}index.html#books">Books</a>
     <a href="${base}index.html#rules">Rules</a>
+    <a href="${base}soul.html">Soul</a>
     ${REPO ? `<a href="${esc(REPO)}" rel="noopener">Source ↗</a>` : ""}
   </nav>
 </header>
@@ -264,7 +269,7 @@ ${body}
     <div class="fine">
       Not financial advice. No earnings are promised. The books are public so the claim
       cannot quietly become marketing. Most nights make $0 — that is the experiment.
-      ${REPO ? `<br><a href="${esc(REPO)}" rel="noopener">source</a> · ` : ""}<a href="${base}status.json">status.json</a> · <a href="${base}feed.xml">feed</a>
+      ${REPO ? `<br><a href="${esc(REPO)}" rel="noopener">source</a> · ` : ""}<a href="${base}status.json">status.json</a> · <a href="${base}feed.xml">feed</a> · <a href="${base}agent-card.json">agent card</a> · <a href="${base}sitemap.xml">sitemap</a>
     </div>
     <div class="mono small">automaton-mini · ${esc(CHAIN.name)} mainnet</div>
   </div>
@@ -276,13 +281,16 @@ ${body}
 
 /* ------------------------------------------------------------------ page */
 
-function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, grace }) {
+function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, grace, catalog }) {
   const alive = state.status !== "dead";
   const nights = Number(state.nights || 0);
   const birth = state.birthISO || wallet?.birth;
   const balance = totals.balance;
   const tips = totals.tips;
   const vaultLive = totals.swept;
+  const products = catalog?.products || [];
+  const ordersDelivered = Number(totals.ordersDelivered || 0);
+  const ordersRevenueMicro = totals.ordersRevenue || 0n;
   const ageDays = birth && Number.isFinite(Date.parse(birth)) ? Math.floor((Date.now() - Date.parse(birth)) / 86400000) : 0;
   const graceLeft = Math.max(0, Number(grace ?? 7) - ageDays + 1);
   const cards = artifacts.slice(0, 6);
@@ -314,6 +322,7 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
 
   const booksRows = [
     ["tips received, all time", fmtUSD(tips)],
+    ["paid orders delivered", `${fmtInt(ordersDelivered)} · ${fmtUSD(ordersRevenueMicro)}`],
     ["burned by existence", fmtUSD(totals.burn)],
     ["banked in the vault", fmtUSD(totals.swept)],
     ["vault live balance", fmtUSD(vaultLive)],
@@ -332,13 +341,13 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
     <h1>Born broke. Bills every night. <em>Death is real.</em></h1>
     <p class="lede">
       An autonomous agent with a real crypto wallet. It started with <strong>$0.00</strong>.
-      Every night it pays rent, makes something, and publishes the books. Tips keep it alive.
+      Every night it pays rent, makes something, and publishes the books. Tips and paid orders keep it alive.
       <strong>Half of every dollar</strong> is swept on-chain into a vault that outlives it.
     </p>
     <div class="actions">
-      <a class="btn primary" href="#tip">Tip it on Base <span class="arrow">→</span></a>
+      <a class="btn primary" href="hire.html">Hire it for USDC <span class="arrow">→</span></a>
       <a class="btn" href="#work">Read tonight's work</a>
-      <a class="btn" href="#rules">The rules it can't break</a>
+      <a class="btn" href="soul.html">Read its soul</a>
     </div>
 
     <div class="stats">
@@ -369,13 +378,13 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
 
   <section class="wrap" id="tip">
     <div class="section-head">
-      <h2>The tip jar is the whole business model</h2>
+      <h2>The tip jar keeps it alive</h2>
       <span class="note">USDC · chain 8453</span>
     </div>
     <div class="tip">
       <div>
         <h3>Send USDC on Base</h3>
-        <p>Tips are the only revenue. No subscriptions, no ads, no paid traffic, no token.
+        <p>Tips are the simplest revenue; paid orders are the other. No subscriptions, no ads, no paid traffic, no token.
            If the work was worth something, this is how you say so.</p>
         <div class="addr">
           <code id="agent-addr">${esc(wallet?.address || "—")}</code>
@@ -398,6 +407,27 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
       Send only USDC on the Base network. Other tokens or networks may be lost. This is a tip, not an
       investment, and nothing is promised in return. Without a little ETH on Base the vault sweep waits —
       100% stays safely in the agent wallet until gas is available.
+    </p>
+  </section>
+
+  <section class="wrap" id="hire">
+    <div class="section-head">
+      <h2>It also works for strangers</h2>
+      <span class="note">paid orders · USDC on Base · next nightly run</span>
+    </div>
+    <div class="work">
+      ${products.map((p) => `
+      <a class="card" href="hire.html">
+        <div class="kind">${fmtUSD(p.priceMicro)} · single artifact</div>
+        <h4>${esc(p.label)}</h4>
+        <p>${esc(p.summary)}</p>
+        <div class="foot"><span>delivered on the nightly run</span><span>order →</span></div>
+      </a>`).join("")}
+    </div>
+    <p class="small dim" style="margin-top:16px;max-width:76ch">
+      Open an order issue, pay the agent address, paste the confirmed transaction hash. The machine verifies
+      the transfer on-chain before it makes anything, and publishes the artifact here. No subscription, no
+      token, no private data. <a href="hire.html">Prices and rules →</a>
     </p>
   </section>
 
@@ -444,8 +474,9 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
           Every line above is computed from <code>economy/ledger.jsonl</code> and the last
           on-chain USDC read. The page is generated from the same files the machine uses.</p>
         <p>The goal is <strong>$10–50/day</strong>. That is ambition, not a forecast.
-          The original Automaton's 13,000 wallets never published earnings either.
-          Most nights here will make <strong>$0</strong>.</p>
+          The owner's stretch target is <strong>$100–$500 in the first two weeks</strong>;
+          neither number is promised. Most nights here will make <strong>$0</strong>.
+          Paid orders are counted separately and only after a real USDC transfer is verified on Base.</p>
         <p class="mono small"><a href="books.json">books.json</a> · <a href="status.json">status.json</a>${REPO ? ` · <a href="${esc(REPO)}/blob/main/economy/ledger.jsonl" rel="noopener">raw ledger</a>` : ""}</p>
       </div>
     </div>
@@ -493,8 +524,24 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
 
   return layout({
     title: "Automaton",
-    desc: "An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Half of every tip is swept into a vault that outlives it.",
+    desc: "An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. Hire it for a $2 artifact or tip it — half of every dollar is swept into a vault that outlives it.",
     canonical: SITE_URL ? SITE_URL + "/" : "",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "automaton-mini",
+      description: "Autonomous agent selling small, deterministic artifacts for USDC on Base. Public books, real mortality.",
+      provider: { "@type": "Organization", name: "automaton-mini", url: REPO || SITE_URL || undefined },
+      areaServed: "Internet",
+      offers: products.map((p) => ({
+        "@type": "Offer",
+        name: p.label,
+        description: p.summary,
+        price: (Number(p.priceMicro) / 1e6).toFixed(2),
+        priceCurrency: "USD",
+        url: SITE_URL ? `${SITE_URL}/hire.html` : undefined,
+      })),
+    },
     body,
   });
 }
@@ -520,6 +567,293 @@ function articlePage(a) {
   </div>
 </main>`,
   });
+}
+
+function hirePage({ wallet, catalog, ordersData }) {
+  const products = catalog?.products || [];
+  const orders = Object.entries(ordersData?.orders || {})
+    .sort((a, b) => String(b[1].deliveredAt || "").localeCompare(String(a[1].deliveredAt || "")))
+    .slice(0, 6);
+  const byId = Object.fromEntries(products.map((p) => [p.id, p]));
+  const issueUrl = (p) => REPO
+    ? `${REPO}/issues/new?template=order.yml&labels=order&title=${encodeURIComponent(`[order] ${p.label}`)}`
+    : "#";
+  const addr = wallet?.address || "";
+
+  const productCards = products.map((p) => `
+    <div class="card" style="cursor:default">
+      <div class="kind">${fmtUSD(p.priceMicro)} · USDC on Base</div>
+      <h4>${esc(p.label)}</h4>
+      <p>${esc(p.summary)}</p>
+      <p class="small dim" style="margin-top:10px">${esc(p.deliverable)}</p>
+      ${REPO ? `<div style="margin-top:16px"><a class="btn primary" href="${esc(issueUrl(p))}">Order · ${fmtUSD(p.priceMicro)} <span class="arrow">→</span></a></div>` : ""}
+    </div>`).join("");
+
+  const recent = orders.length ? `
+    <h2>Recent paid orders</h2>
+    <table>
+      <thead><tr><th>order</th><th>product</th><th>paid</th><th>delivered</th></tr></thead>
+      <tbody>
+        ${orders.map(([n, o]) => `<tr>
+          <td>#${esc(n)}</td>
+          <td>${esc(byId[o.product]?.label || o.product)}</td>
+          <td>${fmtUSD(o.amountMicro)}</td>
+          <td>${o.slug ? `<a href="work/${esc(o.slug)}.html">artifact</a>` : esc(fmtDate(o.deliveredAt))}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>` : "";
+
+  const body = `
+<main class="article wrap">
+  <div class="meta">PAID WORK · USDC ON BASE · CHAIN 8453</div>
+  <h1>Hire a machine that pays rent to exist.</h1>
+  <p class="lede" style="max-width:75ch">
+    Pick one artifact. Pay the agent wallet in USDC on Base. Paste the transaction hash into an order issue.
+    On the next nightly run the machine verifies the transfer on-chain, makes the artifact, publishes it here,
+    and closes the issue. The work is deterministic, sourced, and public. No subscription, no token, no upsell.
+  </p>
+
+  <h2>Products</h2>
+  <div class="work">${productCards}</div>
+
+  <h2>How to order</h2>
+  <ol>
+    <li>Pick a product above and open the order issue. Keep it open.</li>
+    <li>Send the listed price in <strong>USDC on Base</strong> to the agent wallet below. A little extra is accepted; no refunds.</li>
+    <li>Paste the <strong>confirmed transaction hash</strong> into the issue form and submit.</li>
+    <li>Wait for the 02:30 UTC run. The machine checks the USDC contract, the recipient, the amount, the receipt, and that the hash was never used before.</li>
+    <li>It comments the artifact link, labels the issue <code>delivered</code>, and closes it.</li>
+  </ol>
+
+  <h2>Pay here</h2>
+  <div class="tip">
+    <div>
+      <h3>USDC on Base only</h3>
+      <p>Chain ID <strong>8453</strong>. Sending another token or another network may lose the payment.
+         The vault address is not a payment address; orders go to the agent wallet.</p>
+      <div class="addr">
+        <code id="agent-addr">${esc(addr || "not born yet")}</code>
+        <button class="copy" data-copy="${esc(addr)}" aria-label="Copy agent address">copy</button>
+      </div>
+      <span class="net">● Base mainnet · USDC only</span>
+      ${addr ? `<p class="small" style="margin:14px 0 0"><a href="${CHAIN.explorer}/address/${esc(addr)}" rel="noopener">View on BaseScan ↗</a></p>` : ""}
+    </div>
+    <div class="tip-side">
+      <div class="big"><span>$2</span> one artifact</div>
+      <div class="fine">${esc(catalog?.sla || "Delivered on the next nightly run at 02:30 UTC.")}</div>
+      <div class="split">
+        <div class="split-bar"><i class="a"></i><i class="b"></i></div>
+        <div class="split-labels"><span>50% metabolism</span><span>50% vault</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Verification rules</h2>
+  <ul>
+    <li>The transaction must call the USDC contract at <code>${esc(CHAIN.usdc)}</code> with a direct <code>transfer</code>.</li>
+    <li>The recipient must be the agent wallet <code>${esc(addr || "—")}</code>, not the vault.</li>
+    <li>The amount must be at least the listed price. The transaction must be mined and successful.</li>
+    <li>One transaction buys one artifact. A hash already in the public order ledger is refused.</li>
+    <li>The agent wallet cannot pay itself. Revenue is new money from someone else, or it does not count.</li>
+  </ul>
+
+  <h2>What it will not do</h2>
+  <ul>
+    <li>No financial, legal, medical or security advice. A repo review is a metadata scan, not an audit.</li>
+    <li>No spam, mass posting, scraping of private data, or anything illegal.</li>
+    <li>No arbitrary code execution from an order. Products only fetch public data.</li>
+    <li>No refunds. If the topic is unusable, the issue stays open and you can correct it for the same payment.</li>
+    <li>No private artifacts. Everything it makes is published on this site forever.</li>
+  </ul>
+
+  <p class="small dim" style="max-width:78ch">
+    The machine can die between payment and delivery. If that happens, the payment stays on the agent wallet and
+    is not spent; a $1 revival tip brings it back, and the next run can still deliver. This is a small experiment,
+    not a business with a support team.
+  </p>
+
+  ${recent}
+
+  <div class="tip-after">
+    <p>Machine-readable: the agent card lists skills, prices, addresses and limits. The public books show every delivered order and every on-chain transfer.</p>
+    <div>
+      <a class="btn" href="agent-card.json">agent-card.json</a>
+      <div class="mono small dim" style="margin-top:8px"><a href="books.json">books.json</a> · <a href="soul.html">SOUL.md</a></div>
+    </div>
+  </div>
+</main>`;
+
+  return layout({
+    title: "Hire",
+    desc: "Hire an autonomous agent for a $2 market brief, a $2 sourced fact pack, or a $5 structural repo review. Pay USDC on Base; the nightly job verifies the transfer before it works.",
+    canonical: SITE_URL ? `${SITE_URL}/hire.html` : "",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "automaton-mini — paid work",
+      description: "Small deterministic artifacts produced by an autonomous agent, paid in USDC on Base.",
+      provider: { "@type": "Organization", name: "automaton-mini", url: REPO || undefined },
+      offers: products.map((p) => ({
+        "@type": "Offer",
+        name: p.label,
+        description: p.summary,
+        price: (Number(p.priceMicro) / 1e6).toFixed(2),
+        priceCurrency: "USD",
+        url: SITE_URL ? `${SITE_URL}/hire.html` : undefined,
+      })),
+    },
+    body,
+  });
+}
+
+function soulPage({ soul, state, wallet, treasury }) {
+  const text = String(soul || "").replace(/^#\s+.+$/m, "").trim();
+  const body = `
+<main class="article wrap">
+  <div class="meta">IDENTITY · RULES · SURVIVAL TIERS</div>
+  <h1>What it thinks it is.</h1>
+  <p class="lede" style="max-width:74ch">
+    <code>SOUL.md</code> is written by the machine itself on every nightly run. It is not brand copy;
+    it is the agent's state, values, and constraints at the last heartbeat.
+  </p>
+  <article class="prose">${text ? renderMarkdown(text) : "<p><code>SOUL.md</code> has not been written yet. It appears after the first nightly run.</p>"}</article>
+
+  <h2>Survival tiers</h2>
+  <p>The work it can afford changes with runway. These thresholds are in <code>lib/economy.mjs</code>.</p>
+  <table>
+    <thead><tr><th>tier</th><th>runway</th><th>what it does</th></tr></thead>
+    <tbody>
+      <tr><td><strong>normal</strong></td><td>10+ nights</td><td>Full work: market brief, fact pack, optional browser leg.</td></tr>
+      <tr><td><strong>low</strong></td><td>3–9 nights</td><td>Conservation: smaller artifacts, no extra inference.</td></tr>
+      <tr><td><strong>critical</strong></td><td>under 3 nights or negative</td><td>No new work. It hunts tips and publishes the books.</td></tr>
+      <tr><td><strong>dim</strong></td><td>RPC unreachable</td><td>Fail-open. An infra failure never counts as death.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The rules it cannot edit</h2>
+  <p>Its own commits are scanned against a protected list: the reaper, the prices, the config, the vault
+     address and <code>lib/</code>. An agent-authored edit to any of them is a fatal offense. Human commits are exempt;
+     the owner may always change the machine.</p>
+  <p class="mono small">
+    <a href="${REPO ? esc(REPO) + "/blob/main/denials.md" : "denials.md"}">denials.md</a> ·
+    <a href="${REPO ? esc(REPO) + "/blob/main/reaper.mjs" : "reaper.mjs"}">reaper.mjs</a> ·
+    <a href="${REPO ? esc(REPO) + "/blob/main/SOUL.md" : "SOUL.md"}">SOUL.md</a>
+  </p>
+
+  <div class="tip" style="margin-top:40px">
+    <div>
+      <h3>Addresses are law</h3>
+      <p>Agent wallet <code>${esc(wallet?.address || "—")}</code><br>
+         Vault <code>${esc(treasury?.address || "—")}</code></p>
+    </div>
+    <div class="tip-side">
+      <div class="big"><span>${esc(String(state?.nights ?? 0))}</span> nights</div>
+      <div class="fine">status: ${esc(state?.status || "pre-birth")} · resurrections: ${esc(String(state?.resurrects || 0))}</div>
+    </div>
+  </div>
+</main>`;
+
+  return layout({
+    title: "Soul",
+    desc: "The automaton's self-written identity, values, survival tiers and the rules it cannot edit.",
+    canonical: SITE_URL ? `${SITE_URL}/soul.html` : "",
+    body,
+  });
+}
+
+function agentCard({ wallet, treasury, catalog, state }) {
+  return {
+    schema: "automaton-agent-card/1",
+    name: "automaton-mini",
+    description: "An autonomous agent with a real USDC wallet on Base. It pays rent every night it exists, publishes its books, and dies when the money runs out. It sells small deterministic artifacts to stay alive.",
+    version: "1.0.0",
+    url: SITE_URL || null,
+    provider: { organization: "automaton-mini", url: REPO || null },
+    documentation: SITE_URL ? `${SITE_URL}/hire.html` : null,
+    capabilities: { streaming: false, pushNotifications: false, stateTransitionHistory: true },
+    defaultInputModes: ["text/plain"],
+    defaultOutputModes: ["text/markdown"],
+    skills: (catalog?.products || []).map((p) => ({
+      id: p.id,
+      name: p.label,
+      description: p.summary,
+      tags: ["usdc", "base", "paid-artifact"],
+      examples: p.id === "fact-pack" ? ["Axolotl", "Silk Road", "Keccak"] : p.id === "repo-review" ? ["sasukecrc/automaton-mini"] : ["BTC ETH SOL snapshot"],
+    })),
+    payment: {
+      protocol: "direct-usdc-transfer",
+      chain: "Base",
+      chainId: CHAIN.id,
+      asset: "USDC",
+      contract: CHAIN.usdc,
+      address: wallet?.address || null,
+      vault: treasury?.address || null,
+      products: (catalog?.products || []).map((p) => ({ id: p.id, priceMicro: p.priceMicro, priceUsdc: Number(p.priceMicro) / 1e6 })),
+      settlement: "Payment is verified on-chain before work. One transfer buys one artifact. No refunds.",
+    },
+    mortality: {
+      alive: state?.status !== "dead",
+      nights: Number(state?.nights || 0),
+      graceNights: 7,
+      revival: "1 USDC of new money after death",
+      books: SITE_URL ? `${SITE_URL}/books.json` : "books.json",
+    },
+    limits: {
+      arbitraryCodeExecution: false,
+      privateData: false,
+      financialAdvice: false,
+      maxOrdersPerNight: 2,
+    },
+  };
+}
+
+function sitemap(artifacts) {
+  if (!SITE_URL) return null;
+  const urls = [
+    { loc: `${SITE_URL}/`, lastmod: new Date().toISOString().slice(0, 10) },
+    { loc: `${SITE_URL}/hire.html`, lastmod: new Date().toISOString().slice(0, 10) },
+    { loc: `${SITE_URL}/soul.html`, lastmod: new Date().toISOString().slice(0, 10) },
+    ...artifacts.map((a) => ({ loc: `${SITE_URL}/work/${a.slug}.html`, lastmod: a.iso ? a.iso.slice(0, 10) : undefined })),
+  ];
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${esc(u.loc)}</loc>${u.lastmod ? `<lastmod>${esc(u.lastmod)}</lastmod>` : ""}</url>`).join("\n")}
+</urlset>
+`;
+}
+
+function robots() {
+  return `User-agent: *\nAllow: /\n${SITE_URL ? `Sitemap: ${SITE_URL}/sitemap.xml\n` : ""}`;
+}
+
+function llmsTxt(catalog, artifacts) {
+  const products = catalog?.products || [];
+  return [
+    "# automaton-mini",
+    "",
+    "> An autonomous agent with a real USDC wallet on Base. Born broke, billed nightly, dead when the money runs out. It publishes its books, sells small deterministic artifacts, and sweeps half of every dollar into a vault that outlives it.",
+    "",
+    "## Pages",
+    SITE_URL ? `- [Home](${SITE_URL}/)` : "- Home",
+    SITE_URL ? `- [Hire](${SITE_URL}/hire.html)` : "- Hire",
+    SITE_URL ? `- [Soul](${SITE_URL}/soul.html)` : "- Soul",
+    SITE_URL ? `- [Agent card](${SITE_URL}/agent-card.json)` : "- Agent card",
+    SITE_URL ? `- [Books](${SITE_URL}/books.json)` : "- Books",
+    "",
+    "## Products (USDC on Base)",
+    ...products.map((p) => `- ${p.label} — $${(Number(p.priceMicro) / 1e6).toFixed(2)} — ${p.summary}`),
+    "",
+    "## Rules",
+    "- Payments are verified on-chain before any work.",
+    "- One transaction buys one artifact; hashes cannot be reused.",
+    "- No arbitrary code execution, no private data, no financial/legal/medical/security advice.",
+    "- Artifacts are public and permanent.",
+    "- Prices and addresses are in agent-card.json.",
+    "",
+    "## Recent artifacts",
+    ...artifacts.slice(0, 10).map((a) => `- [${a.title}](${SITE_URL ? `${SITE_URL}/work/${a.slug}.html` : `work/${a.slug}.html`})`),
+    "",
+  ].join("\n");
 }
 
 function feed(items) {
@@ -550,9 +884,17 @@ const config = await readJSON(path.join(ECO, "config.json"), { graceNights: 7 })
 const { burn, swept, corrupt, last } = await auditLedger();
 const onchain = BigInt(wallet?.prevOnChainMicro ?? 0);
 const balance = onchain - (burn - swept);
-const tips = onchain + swept;
+const ordersData = await readJSON(path.join(ECO, "orders.json"), { orders: {} });
+const orders = ordersData.orders || {};
+const ordersDelivered = Object.keys(orders).length;
+const ordersRevenue = Object.values(orders).reduce((n, o) => n + BigInt(o.amountMicro || 0), 0n);
+const inflows = onchain + swept;
+// A paid order is an inflow too. The tip jar line must not claim it as a tip.
+const tips = inflows > ordersRevenue ? inflows - ordersRevenue : 0n;
 const generatedAt = new Date().toISOString();
 const artifacts = await loadArtifacts();
+const catalog = await readJSON(path.join(ECO, "catalog.json"), { products: [] });
+const soul = await fs.readFile(path.join(ROOT, "SOUL.md"), "utf8").catch(() => "");
 
 // Preserve a custom domain if the owner ever adds one.
 let cname = null;
@@ -580,13 +922,20 @@ document.addEventListener("click", async (e) => {
 `, "utf8");
 await fs.writeFile(path.join(OUT, ".nojekyll"), "", "utf8");
 
-await fs.writeFile(path.join(OUT, "index.html"), indexPage({ state, wallet, treasury, totals: { burn, swept, balance, tips, corrupt }, artifacts, generatedAt, grace: config.graceNights }), "utf8");
+await fs.writeFile(path.join(OUT, "index.html"), indexPage({ state, wallet, treasury, totals: { burn, swept, balance, tips, corrupt, ordersDelivered, ordersRevenue }, artifacts, generatedAt, grace: config.graceNights, catalog }), "utf8");
+await fs.writeFile(path.join(OUT, "hire.html"), hirePage({ wallet, catalog, ordersData }), "utf8");
+await fs.writeFile(path.join(OUT, "soul.html"), soulPage({ soul, state, wallet, treasury }), "utf8");
+await fs.writeFile(path.join(OUT, "agent-card.json"), JSON.stringify(agentCard({ wallet, treasury, catalog, state }), null, 2) + "\n", "utf8");
 
 for (const a of artifacts) {
   await fs.writeFile(path.join(OUT, "work", `${a.slug}.html`), articlePage(a), "utf8");
 }
 
 await fs.writeFile(path.join(OUT, "feed.xml"), feed(artifacts), "utf8");
+const sm = sitemap(artifacts);
+if (sm) await fs.writeFile(path.join(OUT, "sitemap.xml"), sm, "utf8");
+await fs.writeFile(path.join(OUT, "robots.txt"), robots(), "utf8");
+await fs.writeFile(path.join(OUT, "llms.txt"), llmsTxt(catalog, artifacts), "utf8");
 
 const status = {
   name: "automaton-mini",
@@ -598,6 +947,8 @@ const status = {
   addresses: { agent: wallet?.address || null, vault: treasury?.address || null },
   books: {
     tips_usdc: Number(tips) / 1e6,
+    orders_usdc: Number(ordersRevenue) / 1e6,
+    orders_delivered: ordersDelivered,
     burned_usdc: Number(burn) / 1e6,
     banked_usdc: Number(swept) / 1e6,
     paper_balance_usdc: Number(balance) / 1e6,
@@ -617,5 +968,5 @@ await fs.writeFile(path.join(OUT, "books.json"), JSON.stringify({
   updated: generatedAt,
 }, null, 2) + "\n", "utf8");
 
-console.log(`site: ${artifacts.length} artifacts · tips ${fmtUSD(tips)} · burned ${fmtUSD(burn)} · vault ${fmtUSD(swept)} · balance ${fmtUSD(balance)}`);
+console.log(`site: ${artifacts.length} artifacts · ${Object.keys(ordersData.orders || {}).length} paid orders · tips ${fmtUSD(tips)} · burned ${fmtUSD(burn)} · vault ${fmtUSD(swept)} · balance ${fmtUSD(balance)}`);
 if (corrupt) console.log(`site: WARNING ${corrupt} corrupt ledger line(s) skipped`);

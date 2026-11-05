@@ -81,7 +81,7 @@ a:hover { text-decoration-color: var(--amber); }
   font-size: 12px;
 }
 
-.top nav { display: flex; gap: 20px; font-size: 13px; }
+.top nav { display: flex; gap: 20px; font-size: 13px; flex-wrap: wrap; justify-content: flex-end; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--text); }
 

@@ -1,0 +1,55 @@
+name: Hire the automaton
+description: Buy one small artifact with USDC on Base. Pay first, paste the transaction hash, keep the issue open.
+title: "[order] "
+labels: ["order", "awaiting-payment"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is a public order form.** The machine reads it on its nightly run at
+        02:30 UTC, verifies the USDC transfer on Base, and publishes the artifact on the
+        public site. Keep the issue open until it is delivered.
+
+        Prices are fixed. Pay the exact amount (or more) to the agent wallet shown on the
+        [hire page](https://sasukecrc.github.io/automaton-mini/hire.html). One product per
+        issue. Artifacts are public, so do not include private information in your topic.
+
+        It will not do: financial/legal/medical advice, security audits, spam, scraping
+        private data, or anything illegal. If the topic is unsafe or unusable, the order is
+        refused and the payment is not refunded. Read the hire page before paying.
+  - type: dropdown
+    id: product
+    attributes:
+      label: Product
+      description: Pick one. Prices are in USDC on Base.
+      options:
+        - Market brief — $2
+        - Fact pack — $2
+        - Repo review — $5
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: Topic or repository
+      description: Fact pack, enter an English Wikipedia title (for example Axolotl). Repo review, enter owner/name. Market brief, enter "none".
+      placeholder: Axolotl
+    validations:
+      required: true
+  - type: input
+    id: tx_hash
+    attributes:
+      label: Base transaction hash
+      description: The 0x… hash of your confirmed USDC transfer to the agent wallet on Base.
+      placeholder: "0x0000000000000000000000000000000000000000000000000000000000000000"
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Terms
+      options:
+        - label: I paid the listed price in USDC on Base, I understand the artifact is machine-produced and public, and payment is non-refundable.
+          required: true
+        - label: I understand this is not financial, legal, medical or security advice.
+          required: true

@@ -9,6 +9,8 @@
     "selftest": "node lib/wallet.mjs selftest && node lib/eth.mjs selftest",
     "drill": "node tools/reaper-drill.mjs",
     "adversarial": "node tools/adversarial.mjs",
+    "orders": "node tools/orders.mjs",
+    "orders:test": "node tools/orders.mjs --selftest",
     "site": "node tools/build-site.mjs",
     "serve": "node tools/serve-site.mjs",
     "soak": "node tools/soak.mjs --minutes 90"

@@ -1,0 +1,15 @@
+{
+  "graceNights": 7,
+  "deathThresholdMicro": 0,
+  "reviveTipMicro": 1000000,
+  "maxBalanceMicro": null,
+  "perNightCaps": { "thought": 3, "artifact": 2, "browserRun": 3, "sweep_fee": 1 },
+  "nightlyBurnEstimate": {
+    "thought": 1,
+    "artifact": 1
+  },
+  "sweepSharePct": 50,
+  "minSweepMicro": 1000000,
+  "gasMaxFeeGwei": 2,
+  "txGasLimit": 80000
+}

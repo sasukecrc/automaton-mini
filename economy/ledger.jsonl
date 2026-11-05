@@ -1,0 +1,11 @@
+{"r":"n1","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-01T11:21:52.158Z"}
+{"r":"n1","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-01T11:21:52.159Z"}
+{"r":"n2","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-01T11:23:33.737Z"}
+{"r":"n2","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-01T11:23:33.740Z"}
+{"r":"n2","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-01T11:23:34.695Z"}
+{"r":"n2","kind":"artifact","micro":5000,"meta":"fact-pack tech|Cryptography","t":"2026-11-01T11:23:35.069Z"}
+{"r":"n3","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T06:44:09.781Z"}
+{"r":"n3","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T06:44:09.783Z"}
+{"r":"n3","kind":"artifact","micro":5000,"meta":"market brief n3","t":"2026-11-02T06:44:12.274Z"}
+{"r":"n3","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T06:44:12.277Z"}
+{"r":"n3","kind":"artifact","micro":5000,"meta":"fact-pack history|Silk Road","t":"2026-11-02T06:44:12.818Z"}

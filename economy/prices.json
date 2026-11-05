@@ -1,0 +1,9 @@
+{
+  "comment": "Prices in micro-USDC (1,000,000 = $1). Existence costs money. No free ops.",
+  "rent_night": 50000,
+  "storage_day": 2000,
+  "thought": 10000,
+  "artifact": 5000,
+  "browser_run": 10000,
+  "sweep_fee": 1000
+}

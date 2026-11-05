@@ -1,0 +1,6 @@
+# THE PRIVATE KEYS NEVER ENTER GIT. Not once. Not "temporarily".
+economy/key.json
+economy/key.*.json
+economy/treasury-key.json
+*.local
+node_modules/

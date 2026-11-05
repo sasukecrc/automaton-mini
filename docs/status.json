@@ -1,0 +1,29 @@
+{
+  "name": "automaton-mini",
+  "status": "alive",
+  "nights": 3,
+  "birth": "2026-11-01T11:21:52.137Z",
+  "chain": {
+    "name": "Base",
+    "id": 8453
+  },
+  "token": {
+    "symbol": "USDC",
+    "contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "decimals": 6
+  },
+  "addresses": {
+    "agent": "0x56fde9406234ffcf82d989ce5f58b3e4a12f8768",
+    "vault": "0x272e66290b83c093e7e6ad60cb8b97495ecdd490"
+  },
+  "books": {
+    "tips_usdc": 0,
+    "burned_usdc": 0.191,
+    "banked_usdc": 0,
+    "paper_balance_usdc": -0.191,
+    "corrupt_ledger_lines": 0
+  },
+  "grace_nights": 7,
+  "updated": "2026-11-05T13:57:51.049Z",
+  "site": "https://sasukecrc.github.io/automaton-mini"
+}

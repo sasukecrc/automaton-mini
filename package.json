@@ -1,0 +1,17 @@
+{
+  "name": "automaton-mini",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "description": "A born-broke AI agent with a REAL crypto wallet and a savings vault that survives its death. $0 deps.",
+  "scripts": {
+    "nightly": "node reaper.mjs && node brain.mjs",
+    "selftest": "node lib/wallet.mjs selftest && node lib/eth.mjs selftest",
+    "drill": "node tools/reaper-drill.mjs",
+    "adversarial": "node tools/adversarial.mjs",
+    "site": "node tools/build-site.mjs",
+    "serve": "node tools/serve-site.mjs",
+    "soak": "node tools/soak.mjs --minutes 90"
+  },
+  "engines": { "node": ">=20" }
+}

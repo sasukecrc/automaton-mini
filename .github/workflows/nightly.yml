@@ -1,0 +1,72 @@
+name: automaton-mini nightly
+
+# The cron IS the reaper's heartbeat: an external clock the agent cannot reach.
+# Nightly: selftests (never run on unproven math) → reaper (may kill and death-sweep
+# the estate into the vault) → one night of life → commit everything, including
+# obituaries and the public books.
+#
+# Setup, once:
+#   1. Run `node brain.mjs` locally to birth the wallet (economy/key.json exists).
+#   2. Repo → Settings → Secrets → Actions → add AUTOMATON_AGENT_KEY
+#      = the `d` value from economy/key.json (64 hex chars, with or without 0x).
+#   The treasury key is NEVER needed in CI — the agent only deposits into the vault.
+on:
+  schedule:
+    - cron: "30 2 * * *"   # 02:30 UTC, the agent's heartbeat
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  BASE_RPC: https://mainnet.base.org   # free public RPC; real on-chain reads
+
+jobs:
+  night:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # tamper scan walks the full history
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: crypto selftests (keccak · secp256k1 · EIP-1559 signing)
+        run: |
+          node lib/wallet.mjs selftest
+          node lib/eth.mjs selftest
+
+      - name: death-condition adversarial test (mock chain, no real funds)
+        run: node tools/adversarial.mjs
+
+      - name: reaper (may kill + death-sweep the estate; 0 alive, 3 died)
+        id: reaper
+        continue-on-error: true
+        env:
+          AUTOMATON_AGENT_KEY: ${{ secrets.AUTOMATON_AGENT_KEY }}
+        run: node reaper.mjs
+
+      - name: one night of life (skipped if the reaper killed it)
+        if: steps.reaper.outcome == 'success'
+        env:
+          AUTOMATON_AGENT_KEY: ${{ secrets.AUTOMATON_AGENT_KEY }}
+        run: node brain.mjs
+
+      # The storefront is generated from the same files the machine lives on.
+      # Runs even when it died, so the page can say so.
+      - name: build the public storefront
+        if: always()
+        env:
+          AUTOMATON_REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          AUTOMATON_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: node tools/build-site.mjs
+
+      - name: commit the night (life or obituary)
+        run: |
+          git config user.name  "automaton-mini"
+          git config user.email "automaton-mini@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "n: $(date -u +%FT%TZ) ($([ -f report.md ] && head -c 60 report.md || echo obituary))"
+          git push

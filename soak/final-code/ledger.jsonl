@@ -1,0 +1,147 @@
+{"r":"n1","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:00.263Z"}
+{"r":"n1","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:00.265Z"}
+{"r":"n1","kind":"artifact","micro":5000,"meta":"market brief n1","t":"2026-11-02T08:08:00.749Z"}
+{"r":"n1","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:00.759Z"}
+{"r":"n1","kind":"artifact","micro":5000,"meta":"fact-pack space|Rogue planet","t":"2026-11-02T08:08:01.042Z"}
+{"r":"n2","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:01.384Z"}
+{"r":"n2","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:01.386Z"}
+{"r":"n2","kind":"artifact","micro":5000,"meta":"market brief n2","t":"2026-11-02T08:08:01.882Z"}
+{"r":"n2","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:01.885Z"}
+{"r":"n2","kind":"artifact","micro":5000,"meta":"fact-pack space|Kuiper belt","t":"2026-11-02T08:08:02.145Z"}
+{"r":"n3","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:02.539Z"}
+{"r":"n3","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:02.541Z"}
+{"r":"n3","kind":"artifact","micro":5000,"meta":"market brief n3","t":"2026-11-02T08:08:03.005Z"}
+{"r":"n3","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:03.007Z"}
+{"r":"n3","kind":"artifact","micro":5000,"meta":"fact-pack tech|Packet switching","t":"2026-11-02T08:08:03.283Z"}
+{"r":"n4","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:03.595Z"}
+{"r":"n4","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:03.596Z"}
+{"r":"n4","kind":"sweep","micro":-1000000,"meta":"banked → vault 0xf1d78cf10cb09bca746a9e6a1cb464474df0d21e · tx 0xca177bbd6f86ea0c86e7e0ae6421e419c10270a38346c8563b5ef967d5b52336","t":"2026-11-02T08:08:06.552Z"}
+{"r":"n4","kind":"sweep_fee","micro":1000,"meta":"on-chain banking admin","t":"2026-11-02T08:08:06.554Z"}
+{"r":"n4","kind":"artifact","micro":5000,"meta":"market brief n4","t":"2026-11-02T08:08:06.939Z"}
+{"r":"n4","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:06.942Z"}
+{"r":"n4","kind":"artifact","micro":5000,"meta":"fact-pack ocean|Mariana Trench","t":"2026-11-02T08:08:07.206Z"}
+{"r":"n5","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:07.530Z"}
+{"r":"n5","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:07.532Z"}
+{"r":"n5","kind":"artifact","micro":5000,"meta":"market brief n5","t":"2026-11-02T08:08:08.018Z"}
+{"r":"n5","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:08.020Z"}
+{"r":"n5","kind":"artifact","micro":5000,"meta":"fact-pack history|Antikythera mechanism","t":"2026-11-02T08:08:08.278Z"}
+{"r":"n6","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:08.601Z"}
+{"r":"n6","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:08.603Z"}
+{"r":"n6","kind":"artifact","micro":5000,"meta":"market brief n6","t":"2026-11-02T08:08:09.066Z"}
+{"r":"n6","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:09.069Z"}
+{"r":"n7","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:09.884Z"}
+{"r":"n7","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:09.885Z"}
+{"r":"n7","kind":"artifact","micro":5000,"meta":"market brief n7","t":"2026-11-02T08:08:10.381Z"}
+{"r":"n7","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:10.384Z"}
+{"r":"n7","kind":"artifact","micro":5000,"meta":"fact-pack biology|Tardigrade","t":"2026-11-02T08:08:10.652Z"}
+{"r":"n8","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:11.027Z"}
+{"r":"n8","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:11.028Z"}
+{"r":"n8","kind":"artifact","micro":5000,"meta":"market brief n8","t":"2026-11-02T08:08:11.490Z"}
+{"r":"n8","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:11.492Z"}
+{"r":"n8","kind":"artifact","micro":5000,"meta":"fact-pack tech|Stenography","t":"2026-11-02T08:08:11.972Z"}
+{"r":"n9","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:12.278Z"}
+{"r":"n9","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:12.280Z"}
+{"r":"n9","kind":"artifact","micro":5000,"meta":"market brief n9","t":"2026-11-02T08:08:12.754Z"}
+{"r":"n9","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:12.756Z"}
+{"r":"n9","kind":"artifact","micro":5000,"meta":"fact-pack history|Silk Road","t":"2026-11-02T08:08:13.052Z"}
+{"r":"n10","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:13.415Z"}
+{"r":"n10","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:13.417Z"}
+{"r":"n10","kind":"artifact","micro":5000,"meta":"market brief n10","t":"2026-11-02T08:08:13.966Z"}
+{"r":"n10","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:13.969Z"}
+{"r":"n11","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:14.572Z"}
+{"r":"n11","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:14.573Z"}
+{"r":"n11","kind":"artifact","micro":5000,"meta":"market brief n11","t":"2026-11-02T08:08:15.047Z"}
+{"r":"n11","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:15.050Z"}
+{"r":"n11","kind":"artifact","micro":5000,"meta":"fact-pack space|Oort cloud","t":"2026-11-02T08:08:15.326Z"}
+{"r":"n12","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:15.710Z"}
+{"r":"n12","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:15.711Z"}
+{"r":"n12","kind":"artifact","micro":5000,"meta":"market brief n12","t":"2026-11-02T08:08:16.208Z"}
+{"r":"n12","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:16.211Z"}
+{"r":"n12","kind":"artifact","micro":5000,"meta":"fact-pack space|Magnetar","t":"2026-11-02T08:08:16.480Z"}
+{"r":"n13","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:16.811Z"}
+{"r":"n13","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:16.812Z"}
+{"r":"n13","kind":"artifact","micro":5000,"meta":"market brief n13","t":"2026-11-02T08:08:17.272Z"}
+{"r":"n13","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:17.275Z"}
+{"r":"n13","kind":"artifact","micro":5000,"meta":"fact-pack history|Rosetta Stone","t":"2026-11-02T08:08:17.559Z"}
+{"r":"n14","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:17.876Z"}
+{"r":"n14","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:17.877Z"}
+{"r":"n14","kind":"artifact","micro":5000,"meta":"market brief n14","t":"2026-11-02T08:08:18.349Z"}
+{"r":"n14","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:18.353Z"}
+{"r":"n15","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:18.959Z"}
+{"r":"n15","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:18.960Z"}
+{"r":"n15","kind":"artifact","micro":5000,"meta":"market brief n15","t":"2026-11-02T08:08:19.428Z"}
+{"r":"n15","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:19.432Z"}
+{"r":"n15","kind":"artifact","micro":5000,"meta":"fact-pack biology|Axolotl","t":"2026-11-02T08:08:19.696Z"}
+{"r":"n16","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:20.040Z"}
+{"r":"n16","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:20.042Z"}
+{"r":"n16","kind":"artifact","micro":5000,"meta":"market brief n16","t":"2026-11-02T08:08:20.539Z"}
+{"r":"n16","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:20.544Z"}
+{"r":"n17","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:21.124Z"}
+{"r":"n17","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:21.126Z"}
+{"r":"n17","kind":"artifact","micro":5000,"meta":"market brief n17","t":"2026-11-02T08:08:21.667Z"}
+{"r":"n17","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:21.671Z"}
+{"r":"n17","kind":"artifact","micro":5000,"meta":"fact-pack tech|Cryptography","t":"2026-11-02T08:08:21.941Z"}
+{"r":"n18","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:22.282Z"}
+{"r":"n18","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:22.284Z"}
+{"r":"n18","kind":"artifact","micro":5000,"meta":"market brief n18","t":"2026-11-02T08:08:22.775Z"}
+{"r":"n18","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:22.779Z"}
+{"r":"n18","kind":"artifact","micro":5000,"meta":"fact-pack ocean|Hydrothermal vent","t":"2026-11-02T08:08:23.040Z"}
+{"r":"n19","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:23.354Z"}
+{"r":"n19","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:23.355Z"}
+{"r":"n19","kind":"artifact","micro":5000,"meta":"market brief n19","t":"2026-11-02T08:08:23.852Z"}
+{"r":"n19","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:23.856Z"}
+{"r":"n19","kind":"artifact","micro":5000,"meta":"fact-pack ocean|Blue hole","t":"2026-11-02T08:08:24.114Z"}
+{"r":"n20","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:24.435Z"}
+{"r":"n20","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:24.436Z"}
+{"r":"n20","kind":"artifact","micro":5000,"meta":"market brief n20","t":"2026-11-02T08:08:24.939Z"}
+{"r":"n20","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:24.943Z"}
+{"r":"n21","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:25.572Z"}
+{"r":"n21","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:25.573Z"}
+{"r":"n21","kind":"artifact","micro":5000,"meta":"market brief n21","t":"2026-11-02T08:08:26.029Z"}
+{"r":"n21","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:26.033Z"}
+{"r":"n21","kind":"artifact","micro":5000,"meta":"fact-pack history|Bubonic plague","t":"2026-11-02T08:08:26.353Z"}
+{"r":"n22","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:26.695Z"}
+{"r":"n22","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:26.697Z"}
+{"r":"n22","kind":"artifact","micro":5000,"meta":"market brief n22","t":"2026-11-02T08:08:27.198Z"}
+{"r":"n22","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:27.201Z"}
+{"r":"n23","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:27.821Z"}
+{"r":"n23","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:27.823Z"}
+{"r":"n23","kind":"artifact","micro":5000,"meta":"market brief n23","t":"2026-11-02T08:08:28.291Z"}
+{"r":"n23","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:28.295Z"}
+{"r":"n23","kind":"artifact","micro":5000,"meta":"fact-pack ocean|Bioluminescence","t":"2026-11-02T08:08:28.611Z"}
+{"r":"n24","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:28.944Z"}
+{"r":"n24","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:28.946Z"}
+{"r":"n24","kind":"artifact","micro":5000,"meta":"market brief n24","t":"2026-11-02T08:08:29.475Z"}
+{"r":"n24","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:29.479Z"}
+{"r":"n25","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:30.060Z"}
+{"r":"n25","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:30.061Z"}
+{"r":"n25","kind":"artifact","micro":5000,"meta":"market brief n25","t":"2026-11-02T08:08:30.549Z"}
+{"r":"n25","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:30.553Z"}
+{"r":"n26","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:31.143Z"}
+{"r":"n26","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:31.144Z"}
+{"r":"n26","kind":"artifact","micro":5000,"meta":"market brief n26","t":"2026-11-02T08:08:31.696Z"}
+{"r":"n26","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:31.703Z"}
+{"r":"n26","kind":"artifact","micro":5000,"meta":"fact-pack biology|Mycelium","t":"2026-11-02T08:08:31.964Z"}
+{"r":"n27","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:32.282Z"}
+{"r":"n27","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:32.283Z"}
+{"r":"n28","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:32.795Z"}
+{"r":"n28","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:32.797Z"}
+{"r":"n29","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:33.310Z"}
+{"r":"n29","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:33.311Z"}
+{"r":"n30","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:33.835Z"}
+{"r":"n30","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:33.836Z"}
+{"r":"2026-11-02","kind":"sweep","micro":-1000000,"meta":"DEATH SWEEP → vault 0xf1d78cf10cb09bca746a9e6a1cb464474df0d21e · tx 0x017a91c49881e77c9ee55ec95e29c37b50a2f3657f1cb406009d5c0d57d08860","t":"2026-11-02T08:08:37.181Z"}
+{"r":"n1","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:38.058Z"}
+{"r":"n1","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:38.059Z"}
+{"r":"n1","kind":"sweep","micro":-1500000,"meta":"banked → vault 0xf1d78cf10cb09bca746a9e6a1cb464474df0d21e · tx 0x8abacb606684e86b0f9bcfea921eaf158ef2979d791bee227d8be0cb2acb2898","t":"2026-11-02T08:08:41.065Z"}
+{"r":"n1","kind":"sweep_fee","micro":1000,"meta":"on-chain banking admin","t":"2026-11-02T08:08:41.067Z"}
+{"r":"n1","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:41.458Z"}
+{"r":"n2","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:42.046Z"}
+{"r":"n2","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:42.047Z"}
+{"r":"n2","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:42.550Z"}
+{"r":"n3","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:43.129Z"}
+{"r":"n3","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:43.131Z"}
+{"r":"n3","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:43.628Z"}
+{"r":"n4","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-02T08:08:44.272Z"}
+{"r":"n4","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-02T08:08:44.274Z"}
+{"r":"n4","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-02T08:08:44.744Z"}

@@ -1,0 +1,12 @@
+{
+  "tips_usdc": 0,
+  "burned_usdc": 0.191,
+  "banked_usdc": 0,
+  "paper_balance_usdc": -0.191,
+  "corrupt_ledger_lines": 0,
+  "nights": 3,
+  "deaths": 0,
+  "resurrections": 0,
+  "last_ledger_entry": "2026-11-02T06:44:12.818Z",
+  "updated": "2026-11-05T13:57:51.049Z"
+}

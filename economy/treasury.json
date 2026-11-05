@@ -1,0 +1,19 @@
+{
+  "address": "0x272e66290b83c093e7e6ad60cb8b97495ecdd490",
+  "role": "savings vault — survives the agent's death; collectible via MetaMask/Trust/Phantom",
+  "chain": {
+    "name": "Base",
+    "id": 8453,
+    "rpc": "https://mainnet.base.org"
+  },
+  "token": {
+    "symbol": "USDC",
+    "contract": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "decimals": 6
+  },
+  "policy": {
+    "sweepSharePct": 50,
+    "note": "half of every tipped inflow is swept here nightly; the reaper death-sweeps whatever remains"
+  },
+  "created": "2026-11-02T06:44:09.780Z"
+}

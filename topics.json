@@ -1,0 +1,9 @@
+{
+  "seedCategories": [
+    { "label": "ocean", "queries": ["Mariana Trench", "Bioluminescence", "Blue hole", "Hydrothermal vent"] },
+    { "label": "space", "queries": ["Rogue planet", "Oort cloud", "Magnetar", "Kuiper belt"] },
+    { "label": "history", "queries": ["Antikythera mechanism", "Silk Road", "Bubonic plague", "Rosetta Stone"] },
+    { "label": "biology", "queries": ["Tardigrade", "Axolotl", "Mycelium", "Octopus intelligence"] },
+    { "label": "tech", "queries": ["Stenography", "Packet switching", "Sonar", "Cryptography"] }
+  ]
+}

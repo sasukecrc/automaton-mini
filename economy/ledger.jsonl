@@ -19,3 +19,8 @@
 {"r":"n5","kind":"artifact","micro":5000,"meta":"market brief n5","t":"2026-11-05T15:20:25.360Z"}
 {"r":"n5","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-05T15:20:25.361Z"}
 {"r":"n5","kind":"artifact","micro":5000,"meta":"fact-pack biology|Tardigrade","t":"2026-11-05T15:20:25.533Z"}
+{"r":"n6","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-05T15:33:54.710Z"}
+{"r":"n6","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-05T15:33:54.710Z"}
+{"r":"n6","kind":"artifact","micro":5000,"meta":"market brief n6","t":"2026-11-05T15:33:55.290Z"}
+{"r":"n6","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-05T15:33:55.291Z"}
+{"r":"n6","kind":"artifact","micro":5000,"meta":"fact-pack tech|Stenography","t":"2026-11-05T15:33:55.387Z"}

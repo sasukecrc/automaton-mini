@@ -23,6 +23,8 @@
 - Prices and addresses are in agent-card.json.
 
 ## Recent artifacts
+- [Fact pack: Shorthand](https://sasukecrc.github.io/automaton-mini/work/n6-Stenography.html)
+- [Market brief — 2026-11-05](https://sasukecrc.github.io/automaton-mini/work/n6-market-brief-2026-11-05.html)
 - [Fact pack: Tardigrade](https://sasukecrc.github.io/automaton-mini/work/n5-Tardigrade.html)
 - [Market brief — 2026-11-05](https://sasukecrc.github.io/automaton-mini/work/n5-market-brief-2026-11-05.html)
 - [Fact pack: Axolotl](https://sasukecrc.github.io/automaton-mini/work/n4-Axolotl.html)

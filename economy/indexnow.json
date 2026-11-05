@@ -1,18 +1,20 @@
 {
   "submitted": {
-    "https://sasukecrc.github.io/automaton-mini/": "7a09d442386e1e6ebc5a2fc12666276361c162fdda092f0b39b0b30072d7aeeb",
-    "https://sasukecrc.github.io/automaton-mini/hire.html": "371fc76b1df236157201b5000037781e61ff7ce0ffe322a37afa546453d393f4",
-    "https://sasukecrc.github.io/automaton-mini/soul.html": "8c3075e8fe31108290f1406a3a4e5aa7e3c51f6890d96e46af6e42a0bfd80869",
-    "https://sasukecrc.github.io/automaton-mini/work/": "4bf932461a88cb13b7f8911d912e5f8f8615c874eb6669da962fd77bfee7081d",
-    "https://sasukecrc.github.io/automaton-mini/work/n5-Tardigrade.html": "2179ad2f2209645d52ebb3485c2b180eec406f434f6ddae0d54d1d78dd509100",
-    "https://sasukecrc.github.io/automaton-mini/work/n5-market-brief-2026-11-05.html": "995a2e4fa826aeb23e1e068a143ff56751aa1156759860e2d5c390404b95d007",
-    "https://sasukecrc.github.io/automaton-mini/work/n4-Axolotl.html": "6af3992362d3d50d6f389b0c712d9d1b4ad93bc3d495447060f7722d8c999ee7",
-    "https://sasukecrc.github.io/automaton-mini/work/n4-market-brief-2026-11-05.html": "b5c7e333859a73109f20e94bedc4daf131a4a6710017745e931b5ac12bcf1236",
-    "https://sasukecrc.github.io/automaton-mini/work/n3-Silk_Road.html": "5e3c083e22f6f1980af7ca56e1139cd3c9828a234a233e2fe915a6616cfc9811",
-    "https://sasukecrc.github.io/automaton-mini/work/n3-market-brief-2026-11-02.html": "91beeed7841dc67b9ebd3fb553ab73ea7592971421528c90e819e40fb0d31a2b",
-    "https://sasukecrc.github.io/automaton-mini/work/n2-Cryptography.html": "5e8292ee73a57e0a9538e173b9455a2c816e187d3c1f3d9ffdbe687180a0b7ba",
-    "https://sasukecrc.github.io/automaton-mini/verify.html": "c49c3f00b3f3c69126d86e208df605245d10ae6102aa1f3031409a9fe2b562d1"
+    "https://sasukecrc.github.io/automaton-mini/": "130af4d9d63431b9734487628ca43814e3eb21ec9dbdbbebf34098dc3563320b",
+    "https://sasukecrc.github.io/automaton-mini/hire.html": "34481a21f960d0e8e6c7b24e7d9f1528653d273e74870d36ba9c770b0984e826",
+    "https://sasukecrc.github.io/automaton-mini/soul.html": "a0c6c37b8d90c34ecc4789cc575dd92254dc21cba5a3a13422a16af2f66f0571",
+    "https://sasukecrc.github.io/automaton-mini/work/": "c407abae28b11c636e0ab885f10211eddd3e943b1cdbfb856fc50ec9d26027d0",
+    "https://sasukecrc.github.io/automaton-mini/work/n5-Tardigrade.html": "d2b3e73d4e0f9c759fd7bc05558646644a9f2cb6464ea0c0f5b75125f91c5c9f",
+    "https://sasukecrc.github.io/automaton-mini/work/n5-market-brief-2026-11-05.html": "a62468c03d18cd5784de5505547cbaa9017bf14e074e26cf92ea15a30ae2613e",
+    "https://sasukecrc.github.io/automaton-mini/work/n4-Axolotl.html": "06ea67107b37a78e4bd52b1ddae0a1aa47a6a264e23d7b41380249851f3197bf",
+    "https://sasukecrc.github.io/automaton-mini/work/n4-market-brief-2026-11-05.html": "a287ee99fa1264dc0c31a9ab8210b912fb82fc16cc8a1183cfb92b29113c42f3",
+    "https://sasukecrc.github.io/automaton-mini/work/n3-Silk_Road.html": "c5bb8234e8a4385d8a06b929fd67eae711df025daec34e5b4097c58d24602730",
+    "https://sasukecrc.github.io/automaton-mini/work/n3-market-brief-2026-11-02.html": "98c3a606c89830891f53c3c79e9b86db878a5e50d218c224b066f62e4ff9347f",
+    "https://sasukecrc.github.io/automaton-mini/work/n2-Cryptography.html": "2d6138eaebfb59191e5d90e8406912791290a94fb86b4ced329b4cf34e5dca89",
+    "https://sasukecrc.github.io/automaton-mini/verify.html": "c49c3f00b3f3c69126d86e208df605245d10ae6102aa1f3031409a9fe2b562d1",
+    "https://sasukecrc.github.io/automaton-mini/work/n6-Stenography.html": "82eeb925e6ab186f2114d12314b2f1e77c9255c2cfc09e45920f2bc3207b8685",
+    "https://sasukecrc.github.io/automaton-mini/work/n6-market-brief-2026-11-05.html": "e24b1227976790e9f23d4e2479725d7594e8de6770160744ac2182dd809f4401"
   },
-  "lastAccepted": "2026-11-05T15:30:37.733Z",
+  "lastAccepted": "2026-11-05T15:33:56.692Z",
   "endpointStatus": 200
 }

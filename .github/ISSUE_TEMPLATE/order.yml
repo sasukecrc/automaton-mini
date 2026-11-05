@@ -13,6 +13,8 @@ body:
         Prices are fixed. Pay the exact amount (or more) to the agent wallet shown on the
         [hire page](https://sasukecrc.github.io/automaton-mini/hire.html). One product per
         issue. Artifacts are public, so do not include private information in your topic.
+        A transaction hash can only be used once; the first issue with a valid, unused hash
+        is treated as the buyer.
 
         It will not do: financial/legal/medical advice, security audits, spam, scraping
         private data, or anything illegal. If the topic is unsafe or unusable, the order is

@@ -257,6 +257,7 @@ ${ld}
   <a class="brand" href="${base}index.html"><span class="mark">a</span> automaton-mini</a>
   <nav>
     <a href="${base}hire.html">Hire</a>
+    <a href="${base}verify.html">Verify</a>
     <a href="${base}index.html#work">Work</a>
     <a href="${base}index.html#books">Books</a>
     <a href="${base}index.html#rules">Rules</a>
@@ -428,7 +429,7 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
     <p class="small dim" style="margin-top:16px;max-width:76ch">
       Open an order issue, pay the agent address, paste the confirmed transaction hash. The machine verifies
       the transfer on-chain before it makes anything, and publishes the artifact here. No subscription, no
-      token, no private data. <a href="hire.html">Prices and rules →</a>
+      token, no private data. <a href="hire.html">Prices and rules →</a> · <a href="verify.html">Verify a payment →</a>
     </p>
   </section>
 
@@ -610,6 +611,179 @@ function workArchivePage(artifacts) {
   });
 }
 
+const VERIFY_JS = `
+(function () {
+  var form = document.getElementById('verify-form');
+  var out = document.getElementById('verify-out');
+  var USDC = '0x833589fcd6edb6e08f4c7c32d4f71b54bda02913';
+  var RPC = 'https://1rpc.io/base';
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var fmt = function (micro) {
+    return '$' + (Number(micro) / 1e6).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+  };
+  var short = function (a) { return a ? a.slice(0, 8) + '...' + a.slice(-6) : '-'; };
+  var rpc = function (method, params) {
+    return fetch(RPC, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: method, params: params }),
+      signal: AbortSignal.timeout(20000)
+    }).then(function (r) {
+      if (!r.ok) throw new Error('RPC HTTP ' + r.status);
+      return r.json();
+    }).then(function (j) {
+      if (j.error) throw new Error(j.error.message || 'RPC error');
+      return j.result;
+    });
+  };
+  var decode = function (input) {
+    var hex = String(input || '').toLowerCase();
+    if (hex.indexOf('0xa9059cbb') !== 0 || hex.length < 138) return null;
+    var body = hex.slice(10);
+    try {
+      return { to: '0x' + body.slice(24, 64), amount: BigInt('0x' + body.slice(64, 128)) };
+    } catch (e) { return null; }
+  };
+  var card = function (ok, title, rows, note) {
+    var html = '<div class="verify-card ' + (ok ? 'ok' : 'bad') + '"><h3>' + esc(title) + '</h3><dl>';
+    rows.forEach(function (r) {
+      html += '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>';
+    });
+    html += '</dl>';
+    if (note) html += '<p class="verify-note">' + esc(note) + '</p>';
+    html += '</div>';
+    out.innerHTML = html;
+  };
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var hash = document.getElementById('tx').value.trim().toLowerCase();
+    var expected = document.getElementById('recipient').value.trim().toLowerCase();
+    if (!/^0x[0-9a-f]{64}$/.test(hash)) {
+      card(false, 'Not a transaction hash', [['input', hash || '(empty)']], 'A Base transaction hash is 0x followed by 64 hex characters.');
+      return;
+    }
+    if (expected && !/^0x[0-9a-f]{40}$/.test(expected)) {
+      card(false, 'Not an address', [['input', expected]], 'An address is 0x followed by 40 hex characters. Leave the field empty to skip the recipient check.');
+      return;
+    }
+    out.innerHTML = '<div class="verify-card"><h3>Checking Base...</h3><p class="verify-note">Reading the transaction and its receipt from a public RPC.</p></div>';
+    Promise.all([
+      rpc('eth_getTransactionByHash', [hash]),
+      rpc('eth_getTransactionReceipt', [hash])
+    ]).then(function (res) {
+      var tx = res[0], receipt = res[1];
+      if (!tx) {
+        card(false, 'Transaction not found', [['hash', hash]], 'It may still be pending, or it was sent on another network. This tool only reads Base mainnet.');
+        return;
+      }
+      var isUsdc = tx.to && tx.to.toLowerCase() === USDC;
+      var d = decode(tx.input);
+      var statusOk = receipt && receipt.status === '0x1';
+      var recipientOk = !expected || (d && d.to.toLowerCase() === expected);
+      var selfPay = d && tx.from && d.to.toLowerCase() === tx.from.toLowerCase();
+      var valid = isUsdc && !!d && statusOk && recipientOk && d.amount > 0n && !selfPay;
+      var rows = [
+        ['transaction', short(tx.hash)],
+        ['contract', isUsdc ? 'USDC on Base' : (tx.to || 'none')],
+        ['from', tx.from || '-'],
+        ['recipient', d ? d.to : 'not a direct transfer'],
+        ['amount', d ? fmt(d.amount) : '-'],
+        ['receipt', receipt ? (statusOk ? 'success' : 'reverted') : 'not mined'],
+        ['block', receipt && receipt.blockNumber ? BigInt(receipt.blockNumber).toLocaleString('en-US') : '-']
+      ];
+      if (expected) rows.push(['expected recipient', expected + (recipientOk ? ' (matches)' : ' (does not match)')]);
+      var note;
+      if (valid) note = 'This is a successful direct USDC transfer on Base. If the recipient is your address, the money is there. It does not prove who controls the sender or what the payment was for.';
+      else if (!isUsdc) note = 'This transaction did not call the USDC contract. Tokens moved by another contract, a bridge or an internal call are not detected here.';
+      else if (!d) note = 'This is not a direct ERC-20 transfer(address,uint256) call. The order desk only accepts direct transfers.';
+      else if (!statusOk) note = 'The transaction is not mined successfully, so no USDC moved.';
+      else if (!recipientOk) note = 'The transfer went to a different address than the one you entered.';
+      else if (selfPay) note = 'Sender and recipient are the same address. That is a self-transfer, not a customer payment.';
+      else note = 'This transfer does not satisfy every check.';
+      card(valid, valid ? 'Valid USDC payment' : 'Not a valid payment', rows, note);
+    }).catch(function (err) {
+      card(false, 'Could not verify', [['error', err.message]], 'The public RPC may be rate-limited. Try again in a moment, or check the hash on basescan.org.');
+    });
+  });
+})();
+`;
+
+function verifyPage({ wallet }) {
+  const body = `
+<main class="article wrap">
+  <div class="meta">FREE TOOL · BASE MAINNET · USDC</div>
+  <h1>Verify a USDC payment on Base.</h1>
+  <p class="lede" style="max-width:74ch">
+    Paste a Base transaction hash. This page checks the USDC contract, the recipient, the amount and the
+    receipt — the same direct-transfer check the machine runs before it does paid work. Everything happens
+    in your browser; the only request goes to a public Base RPC.
+  </p>
+
+  <div class="tip" style="grid-template-columns:1fr">
+    <div>
+      <form id="verify-form" class="verify-form" autocomplete="off">
+        <label>Base transaction hash
+          <input id="tx" name="tx" placeholder="0x..." spellcheck="false" inputmode="text" />
+        </label>
+        <label>Expected recipient (optional)
+          <input id="recipient" name="recipient" placeholder="0x..." spellcheck="false" value="${esc(wallet?.address || "")}" />
+        </label>
+        <button class="btn primary" type="submit">Verify <span class="arrow">→</span></button>
+      </form>
+      <div id="verify-out" class="verify-out" aria-live="polite"></div>
+      <p class="verify-note">
+        The recipient is prefilled with this agent's wallet because most visitors are checking an order payment.
+        Clear it to verify a transfer to any address. This tool only reads; it never asks for a key or signature.
+      </p>
+    </div>
+  </div>
+
+  <h2>What it checks</h2>
+  <ul>
+    <li>The transaction exists on Base mainnet and its receipt succeeded.</li>
+    <li>The call target is the USDC contract at <code>${esc(CHAIN.usdc)}</code>.</li>
+    <li>The calldata is a direct <code>transfer(address,uint256)</code>, not a contract call that mentions USDC.</li>
+    <li>The decoded recipient matches the address you entered (if any) and the decoded amount is nonzero.</li>
+    <li>The sender and recipient are different addresses.</li>
+  </ul>
+
+  <h2>What it cannot prove</h2>
+  <p class="small muted" style="max-width:78ch">
+    It does not prove who controls the sender, that the payment was meant for a particular order, or that the
+    recipient will deliver anything. It also does not detect USDC moved by bridges, smart accounts or internal
+    contract calls. For a final check, open the transaction on
+    <a href="${CHAIN.explorer}" rel="noopener">BaseScan</a>. This tool is not financial advice.
+  </p>
+
+  <div class="tip-after">
+    <p>Need something made, not just checked? The machine sells a $2 market brief, a $2 sourced fact pack and a $5 structural repo review.</p>
+    <a class="btn" href="hire.html">See the menu <span class="arrow">→</span></a>
+  </div>
+</main>
+<script>${VERIFY_JS}</script>`;
+
+  return layout({
+    title: "Verify a USDC payment",
+    desc: "Free client-side verifier for USDC payments on Base. Checks the USDC contract, direct transfer calldata, recipient, amount and receipt. No keys, no backend.",
+    canonical: SITE_URL ? `${SITE_URL}/verify.html` : "",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "USDC payment verifier (Base)",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "Any",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      description: "Client-side check of a Base transaction for a direct USDC transfer: contract, calldata, recipient, amount and receipt.",
+      url: SITE_URL ? `${SITE_URL}/verify.html` : undefined,
+    },
+    body,
+  });
+}
+
 function hirePage({ wallet, catalog, ordersData }) {
   const products = catalog?.products || [];
   const orders = Object.entries(ordersData?.orders || {})
@@ -662,6 +836,7 @@ function hirePage({ wallet, catalog, ordersData }) {
     <li>Pick a product above and open the order issue. Keep it open.</li>
     <li>Send the listed price in <strong>USDC on Base</strong> to the agent wallet below. A little extra is accepted; no refunds.</li>
     <li>Paste the <strong>confirmed transaction hash</strong> into the issue form and submit.</li>
+    <li>Optional: check the transfer yourself with the free <a href="verify.html">USDC verifier</a>.</li>
     <li>Wait for the 02:30 UTC run. The machine checks the USDC contract, the recipient, the amount, the receipt, and that the hash was never used before.</li>
     <li>It comments the artifact link, labels the issue <code>delivered</code>, and closes it.</li>
   </ol>
@@ -695,6 +870,7 @@ function hirePage({ wallet, catalog, ordersData }) {
     <li>The recipient must be the agent wallet <code>${esc(addr || "—")}</code>, not the vault.</li>
     <li>The amount must be at least the listed price. The transaction must be mined and successful.</li>
     <li>One transaction buys one artifact. A hash already in the public order ledger is refused.</li>
+    <li>The first issue with a valid, unused transaction hash is treated as the buyer. Do not share a payment hash you did not send.</li>
     <li>The agent wallet cannot pay itself. Revenue is new money from someone else, or it does not count.</li>
   </ul>
 
@@ -853,6 +1029,7 @@ function sitemap(artifacts) {
   const urls = [
     { loc: `${SITE_URL}/`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/hire.html`, lastmod: new Date().toISOString().slice(0, 10) },
+    { loc: `${SITE_URL}/verify.html`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/soul.html`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/work/`, lastmod: new Date().toISOString().slice(0, 10) },
     ...artifacts.map((a) => ({ loc: `${SITE_URL}/work/${a.slug}.html`, lastmod: a.iso ? a.iso.slice(0, 10) : undefined })),
@@ -878,6 +1055,7 @@ function llmsTxt(catalog, artifacts) {
     "## Pages",
     SITE_URL ? `- [Home](${SITE_URL}/)` : "- Home",
     SITE_URL ? `- [Hire](${SITE_URL}/hire.html)` : "- Hire",
+    SITE_URL ? `- [USDC payment verifier](${SITE_URL}/verify.html)` : "- Verify",
     SITE_URL ? `- [Soul](${SITE_URL}/soul.html)` : "- Soul",
     SITE_URL ? `- [Agent card](${SITE_URL}/agent-card.json)` : "- Agent card",
     SITE_URL ? `- [Books](${SITE_URL}/books.json)` : "- Books",
@@ -966,6 +1144,7 @@ await fs.writeFile(path.join(OUT, ".nojekyll"), "", "utf8");
 
 await fs.writeFile(path.join(OUT, "index.html"), indexPage({ state, wallet, treasury, totals: { burn, swept, balance, tips, corrupt, ordersDelivered, ordersRevenue }, artifacts, generatedAt, grace: config.graceNights, catalog }), "utf8");
 await fs.writeFile(path.join(OUT, "hire.html"), hirePage({ wallet, catalog, ordersData }), "utf8");
+await fs.writeFile(path.join(OUT, "verify.html"), verifyPage({ wallet }), "utf8");
 await fs.writeFile(path.join(OUT, "soul.html"), soulPage({ soul, state, wallet, treasury }), "utf8");
 await fs.writeFile(path.join(OUT, "agent-card.json"), JSON.stringify(agentCard({ wallet, treasury, catalog, state }), null, 2) + "\n", "utf8");
 

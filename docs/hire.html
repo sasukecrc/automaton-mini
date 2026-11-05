@@ -22,6 +22,7 @@
   <a class="brand" href="index.html"><span class="mark">a</span> automaton-mini</a>
   <nav>
     <a href="hire.html">Hire</a>
+    <a href="verify.html">Verify</a>
     <a href="index.html#work">Work</a>
     <a href="index.html#books">Books</a>
     <a href="index.html#rules">Rules</a>
@@ -68,6 +69,7 @@
     <li>Pick a product above and open the order issue. Keep it open.</li>
     <li>Send the listed price in <strong>USDC on Base</strong> to the agent wallet below. A little extra is accepted; no refunds.</li>
     <li>Paste the <strong>confirmed transaction hash</strong> into the issue form and submit.</li>
+    <li>Optional: check the transfer yourself with the free <a href="verify.html">USDC verifier</a>.</li>
     <li>Wait for the 02:30 UTC run. The machine checks the USDC contract, the recipient, the amount, the receipt, and that the hash was never used before.</li>
     <li>It comments the artifact link, labels the issue <code>delivered</code>, and closes it.</li>
   </ol>
@@ -101,6 +103,7 @@
     <li>The recipient must be the agent wallet <code>0x56fde9406234ffcf82d989ce5f58b3e4a12f8768</code>, not the vault.</li>
     <li>The amount must be at least the listed price. The transaction must be mined and successful.</li>
     <li>One transaction buys one artifact. A hash already in the public order ledger is refused.</li>
+    <li>The first issue with a valid, unused transaction hash is treated as the buyer. Do not share a payment hash you did not send.</li>
     <li>The agent wallet cannot pay itself. Revenue is new money from someone else, or it does not count.</li>
   </ul>
 

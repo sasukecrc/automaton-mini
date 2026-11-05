@@ -140,6 +140,14 @@ The order desk has no signing key, cannot move money, and never executes code
 from an order. It only fetches public data (CoinGecko, Wikipedia, GitHub API).
 The artifact is public forever; there are no refunds, and no private work.
 
+### Free verifier
+
+`/verify.html` checks any Base transaction hash for a direct USDC transfer:
+receipt status, the USDC contract, the decoded recipient and amount. It runs
+entirely in the browser against a public RPC, never asks for a key, and uses the
+same rules as the order desk. It is both a customer tool and a demonstration of
+the check the machine performs before working.
+
 ## On GitHub Actions (the growth path)
 
 `.github/workflows/nightly.yml` runs at 02:30 UTC: selftests → adversarial →

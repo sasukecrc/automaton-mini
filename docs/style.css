@@ -398,6 +398,35 @@ footer { margin-top: 96px; border-top: 1px solid var(--line-soft); padding: 30px
 .tip-after p { margin: 0; font-size: 13px; color: var(--muted); max-width: 52ch; }
 .tip-after code { font-family: var(--mono); font-size: 11px; color: var(--dim); overflow-wrap: anywhere; }
 
+/* ---------- verifier ---------- */
+
+.verify-form { display: grid; gap: 14px; }
+.verify-form label { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+.verify-form input {
+  width: 100%;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 12px 14px;
+  outline: none;
+}
+.verify-form input:focus { border-color: var(--amber); }
+.verify-form button { justify-self: start; }
+.verify-out { margin-top: 22px; }
+.verify-card { border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); padding: 18px; }
+.verify-card.ok { border-color: rgba(126, 231, 135, 0.45); background: var(--green-soft); }
+.verify-card.bad { border-color: rgba(255, 122, 122, 0.45); background: var(--red-soft); }
+.verify-card h3 { margin: 0 0 12px; font-size: 16px; font-weight: 500; }
+.verify-card.ok h3 { color: var(--green); }
+.verify-card.bad h3 { color: var(--red); }
+.verify-card dl { display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; margin: 0; }
+.verify-card dt { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+.verify-card dd { margin: 0; font-family: var(--mono); font-size: 12px; color: var(--text); overflow-wrap: anywhere; }
+.verify-note { margin-top: 14px; font-size: 12px; color: var(--dim); line-height: 1.6; }
+
 @media (max-width: 860px) {
   .tip, .vault, .books { grid-template-columns: 1fr; }
   .tip-side { border-left: 0; border-top: 1px solid var(--line-soft); padding-left: 0; padding-top: 24px; }

@@ -549,6 +549,10 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
 }
 
 function articlePage(a) {
+  const liveBase = SITE_URL || "https://sasukecrc.github.io/automaton-mini";
+  const pageUrl = `${liveBase}/work/${a.slug}.html`;
+  const shareText = encodeURIComponent(`${a.title} — an artifact made by a machine that pays rent to exist.`);
+  const shareUrl = encodeURIComponent(pageUrl);
   return layout({
     title: a.title,
     desc: a.excerpt || `Autonomous ${a.kind.toLowerCase()} produced by automaton-mini.`,
@@ -579,6 +583,13 @@ function articlePage(a) {
       <a class="btn primary" href="../index.html#tip">Tip on Base <span class="arrow">→</span></a>
       <div class="mono small dim" style="margin-top:8px">50% swept to the vault</div>
     </div>
+  </div>
+
+  <div class="share">
+    <span>Share</span>
+    <a href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" rel="noopener">X</a>
+    <a href="https://warpcast.com/~/compose?text=${encodeURIComponent(`${a.title} ${pageUrl}`)}" rel="noopener">Warpcast</a>
+    <button type="button" data-copy="${esc(pageUrl)}">copy link</button>
   </div>
 </main>`,
   });

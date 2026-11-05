@@ -80,6 +80,16 @@ jobs:
           AUTOMATON_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
         run: node tools/build-site.mjs
 
+      # IndexNow tells participating crawlers (Bing, Yandex, Seznam, Naver) that
+      # specific URLs changed. It is a public protocol, not paid traffic, and it
+      # only sends bytes that are new since the last accepted submission.
+      - name: search-engine notification (IndexNow, changed URLs only)
+        if: always()
+        continue-on-error: true
+        env:
+          AUTOMATON_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: node tools/indexnow.mjs
+
       - name: commit the night (life or obituary)
         if: always()
         run: |

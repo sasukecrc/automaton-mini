@@ -12,8 +12,12 @@ actual fee is fractions of a cent) lets the vault sweep run. Without gas, 100%
 waits safely in the agent wallet — still collectible (see COLLECT.md).
 Every number — tips in, burns, sweeps — is public in `earnings.md`.
 
+Paid work is on `/hire.html`: a $2 market brief, a $2 sourced fact pack, or a $5
+structural repo review. The nightly job verifies the customer's USDC transfer on
+Base before it makes anything. No subscription, no token, no private data.
+
 ### Tonight's shelf
-- **Market brief 2026-11-05** — 3 pairs · CoinGecko simple price → `artifacts/n4-market-brief-2026-11-05.md`
-- **Fact pack — Axolotl** → `artifacts/n4-Axolotl.md`
+- **Market brief 2026-11-05** — 3 pairs · CoinGecko markets → `artifacts/n5-market-brief-2026-11-05.md`
+- **Fact pack — Tardigrade** → `artifacts/n5-Tardigrade.md`
 
 born 2026-11-01 · grace 7 nights · deaths are final until tipped

@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "comment": "Paid-order memory. Written by tools/orders.mjs after an on-chain payment is verified. usedTx prevents one transfer from buying two artifacts.",
   "notified": {},
   "usedTx": {},
-  "orders": {}
+  "orders": {},
+  "updated": "2026-11-05T15:20:26.190Z"
 }

@@ -1,12 +1,13 @@
 {
   "status": "alive",
   "birthISO": "2026-11-01T11:21:52.137Z",
-  "nights": 4,
+  "nights": 5,
   "lastTier": "low (juvenile allowance, grace active)",
   "doneTopics": [
     "tech|Cryptography",
     "history|Silk Road",
-    "biology|Axolotl"
+    "biology|Axolotl",
+    "biology|Tardigrade"
   ],
   "lastWords": false,
   "resurrects": 0,

@@ -229,7 +229,7 @@ async function loadArtifacts() {
 
 /* ---------------------------------------------------------------- layout */
 
-function layout({ title, desc, canonical, body, active = "" }) {
+function layout({ title, desc, canonical, body, active = "", base = "" }) {
   const fullTitle = title === "Automaton" ? "Automaton — a machine that pays rent to exist" : `${esc(title)} · Automaton`;
   return `<!doctype html>
 <html lang="en">
@@ -243,18 +243,18 @@ function layout({ title, desc, canonical, body, active = "" }) {
 <meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(desc)}">
 ${canonical ? `<meta property="og:url" content="${esc(canonical)}">\n<link rel="canonical" href="${esc(canonical)}">` : ""}
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css">
-<script defer src="app.js"></script>
+<link rel="icon" href="${base}favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="${base}style.css">
+<script defer src="${base}app.js"></script>
 </head>
 <body>
 <header class="top wrap">
-  <a class="brand" href="index.html"><span class="mark">a</span> automaton-mini</a>
+  <a class="brand" href="${base}index.html"><span class="mark">a</span> automaton-mini</a>
   <nav>
-    <a href="index.html#tip">Tip jar</a>
-    <a href="index.html#work">Work</a>
-    <a href="index.html#books">Books</a>
-    <a href="index.html#rules">Rules</a>
+    <a href="${base}index.html#tip">Tip jar</a>
+    <a href="${base}index.html#work">Work</a>
+    <a href="${base}index.html#books">Books</a>
+    <a href="${base}index.html#rules">Rules</a>
     ${REPO ? `<a href="${esc(REPO)}" rel="noopener">Source ↗</a>` : ""}
   </nav>
 </header>
@@ -264,7 +264,7 @@ ${body}
     <div class="fine">
       Not financial advice. No earnings are promised. The books are public so the claim
       cannot quietly become marketing. Most nights make $0 — that is the experiment.
-      ${REPO ? `<br><a href="${esc(REPO)}" rel="noopener">source</a> · ` : ""}<a href="status.json">status.json</a> · <a href="feed.xml">feed</a>
+      ${REPO ? `<br><a href="${esc(REPO)}" rel="noopener">source</a> · ` : ""}<a href="${base}status.json">status.json</a> · <a href="${base}feed.xml">feed</a>
     </div>
     <div class="mono small">automaton-mini · ${esc(CHAIN.name)} mainnet</div>
   </div>
@@ -504,6 +504,7 @@ function articlePage(a) {
     title: a.title,
     desc: a.excerpt || `Autonomous ${a.kind.toLowerCase()} produced by automaton-mini.`,
     canonical: SITE_URL ? `${SITE_URL}/work/${a.slug}.html` : "",
+    base: "../",
     body: `
 <main class="article wrap">
   <a class="back" href="../index.html#work">← all work</a>

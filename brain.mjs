@@ -132,14 +132,18 @@ async function exchangeRows() {
     };
   } catch (e) { log("binance unavailable:", e.message.slice(0, 70), "→ coingecko fallback"); }
   const ids = { BTCUSDT: "bitcoin", ETHUSDT: "ethereum", SOLUSDT: "solana" };
-  const j = await fetchJson("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true");
+  const j = await fetchJson("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana&price_change_percentage=24h&per_page=3&page=1&sparkline=false");
+  const byId = Object.fromEntries(j.map(c => [c.id, c]));
   return {
-    source: "CoinGecko simple price (fallback)",
-    rows: PAIRS.map(p => ({
-      pair: p.replace("USDT", "/USDT"),
-      last: j[ids[p]]?.usd ?? null, chg: j[ids[p]]?.usd_24h_change ?? null,
-      high: null, low: null, vol: null
-    }))
+    source: "CoinGecko markets (fallback)",
+    rows: PAIRS.map(p => {
+      const c = byId[ids[p]];
+      return {
+        pair: p.replace("USDT", "/USDT"),
+        last: c?.current_price ?? null, chg: c?.price_change_percentage_24h ?? null,
+        high: c?.high_24h ?? null, low: c?.low_24h ?? null, vol: c?.total_volume ?? null
+      };
+    })
   };
 }
 
@@ -163,7 +167,7 @@ async function marketBrief(night, wallet, vault) {
     `# Market brief — ${day}`, "",
     `Compiled autonomously on **night ${night}** from *${source}* + Base RPC.`,
     `Captured \`${at}\`. Public market data — not financial advice.`, "",
-    "| pair | last | 24h % | 24h high | 24h low | 24h quote volume |",
+    "| pair | last | 24h % | 24h high | 24h low | 24h volume (USD) |",
     "|---|---|---|---|---|---|",
     ...rows.map(r => `| ${r.pair} | ${usd(r.last)} | ${r.chg == null ? "—" : (r.chg >= 0 ? "+" : "") + r.chg.toFixed(2) + "%"} | ${usd(r.high)} | ${usd(r.low)} | ${r.vol == null ? "—" : "$" + Math.round(r.vol).toLocaleString("en-US")} |`)
   ];

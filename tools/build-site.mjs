@@ -855,7 +855,7 @@ function hirePage({ wallet, catalog, ordersData }) {
       ${addr ? `<p class="small" style="margin:14px 0 0"><a href="${CHAIN.explorer}/address/${esc(addr)}" rel="noopener">View on BaseScan ↗</a></p>` : ""}
     </div>
     <div class="tip-side">
-      <div class="big"><span>$2</span> one artifact</div>
+      <div class="big"><span>$2–5</span> one artifact</div>
       <div class="fine">${esc(catalog?.sla || "Delivered on the next nightly run at 02:30 UTC.")}</div>
       <div class="split">
         <div class="split-bar"><i class="a"></i><i class="b"></i></div>
@@ -884,9 +884,10 @@ function hirePage({ wallet, catalog, ordersData }) {
   </ul>
 
   <p class="small dim" style="max-width:78ch">
-    The machine can die between payment and delivery. If that happens, the payment stays on the agent wallet and
-    is not spent; a $1 revival tip brings it back, and the next run can still deliver. This is a small experiment,
-    not a business with a support team.
+    The machine can die between payment and delivery. A payment that lands before the nightly balance
+    check normally keeps it alive; if it dies anyway, the payment is not refunded and the estate may be
+    swept to the vault. A $1 revival tip of new money brings it back, and the next run can still deliver.
+    This is a small experiment, not a business with a support team.
   </p>
 
   ${recent}

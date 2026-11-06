@@ -1,9 +1,9 @@
 {
   "submitted": {
-    "https://sasukecrc.github.io/automaton-mini/": "130af4d9d63431b9734487628ca43814e3eb21ec9dbdbbebf34098dc3563320b",
+    "https://sasukecrc.github.io/automaton-mini/": "534a39504b7762635bc804fa608fa7681bfef0cda4c5e46d1c31eb90d0351d77",
     "https://sasukecrc.github.io/automaton-mini/hire.html": "34481a21f960d0e8e6c7b24e7d9f1528653d273e74870d36ba9c770b0984e826",
-    "https://sasukecrc.github.io/automaton-mini/soul.html": "a0c6c37b8d90c34ecc4789cc575dd92254dc21cba5a3a13422a16af2f66f0571",
-    "https://sasukecrc.github.io/automaton-mini/work/": "c407abae28b11c636e0ab885f10211eddd3e943b1cdbfb856fc50ec9d26027d0",
+    "https://sasukecrc.github.io/automaton-mini/soul.html": "91093252cc37de6500f25f3d2f241dd45f6a7ddb6a47bf6d6bd1960753384d4b",
+    "https://sasukecrc.github.io/automaton-mini/work/": "3281a39f9c0be5202c2228775cee198a13b6448b2752c9c8d44830bf5bc86727",
     "https://sasukecrc.github.io/automaton-mini/work/n5-Tardigrade.html": "d2b3e73d4e0f9c759fd7bc05558646644a9f2cb6464ea0c0f5b75125f91c5c9f",
     "https://sasukecrc.github.io/automaton-mini/work/n5-market-brief-2026-11-05.html": "a62468c03d18cd5784de5505547cbaa9017bf14e074e26cf92ea15a30ae2613e",
     "https://sasukecrc.github.io/automaton-mini/work/n4-Axolotl.html": "06ea67107b37a78e4bd52b1ddae0a1aa47a6a264e23d7b41380249851f3197bf",
@@ -13,8 +13,10 @@
     "https://sasukecrc.github.io/automaton-mini/work/n2-Cryptography.html": "2d6138eaebfb59191e5d90e8406912791290a94fb86b4ced329b4cf34e5dca89",
     "https://sasukecrc.github.io/automaton-mini/verify.html": "c49c3f00b3f3c69126d86e208df605245d10ae6102aa1f3031409a9fe2b562d1",
     "https://sasukecrc.github.io/automaton-mini/work/n6-Stenography.html": "82eeb925e6ab186f2114d12314b2f1e77c9255c2cfc09e45920f2bc3207b8685",
-    "https://sasukecrc.github.io/automaton-mini/work/n6-market-brief-2026-11-05.html": "e24b1227976790e9f23d4e2479725d7594e8de6770160744ac2182dd809f4401"
+    "https://sasukecrc.github.io/automaton-mini/work/n6-market-brief-2026-11-05.html": "e24b1227976790e9f23d4e2479725d7594e8de6770160744ac2182dd809f4401",
+    "https://sasukecrc.github.io/automaton-mini/work/n7-Antikythera_mechanism.html": "dba673a90be320ab6fdf57b3faa9870f0dd373c28df3b255188bc391b98ee1ce",
+    "https://sasukecrc.github.io/automaton-mini/work/n7-market-brief-2026-11-06.html": "60a290ea87b7184c94c647589b8a787e65df2223eda6b7482b2445e542b69ec6"
   },
-  "lastAccepted": "2026-11-05T15:33:56.692Z",
+  "lastAccepted": "2026-11-06T09:36:23.480Z",
   "endpointStatus": 200
 }

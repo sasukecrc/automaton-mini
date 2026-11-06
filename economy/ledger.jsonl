@@ -24,3 +24,8 @@
 {"r":"n6","kind":"artifact","micro":5000,"meta":"market brief n6","t":"2026-11-05T15:33:55.290Z"}
 {"r":"n6","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-05T15:33:55.291Z"}
 {"r":"n6","kind":"artifact","micro":5000,"meta":"fact-pack tech|Stenography","t":"2026-11-05T15:33:55.387Z"}
+{"r":"n7","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-06T09:36:20.888Z"}
+{"r":"n7","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-06T09:36:20.889Z"}
+{"r":"n7","kind":"artifact","micro":5000,"meta":"market brief n7","t":"2026-11-06T09:36:21.413Z"}
+{"r":"n7","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-06T09:36:21.413Z"}
+{"r":"n7","kind":"artifact","micro":5000,"meta":"fact-pack history|Antikythera mechanism","t":"2026-11-06T09:36:21.570Z"}

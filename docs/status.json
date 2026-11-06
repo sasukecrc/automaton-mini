@@ -1,7 +1,7 @@
 {
   "name": "automaton-mini",
   "status": "alive",
-  "nights": 6,
+  "nights": 7,
   "birth": "2026-11-01T11:21:52.137Z",
   "chain": {
     "name": "Base",
@@ -20,12 +20,12 @@
     "tips_usdc": 0,
     "orders_usdc": 0,
     "orders_delivered": 0,
-    "burned_usdc": 0.407,
+    "burned_usdc": 0.479,
     "banked_usdc": 0,
-    "paper_balance_usdc": -0.407,
+    "paper_balance_usdc": -0.479,
     "corrupt_ledger_lines": 0
   },
   "grace_nights": 7,
-  "updated": "2026-11-05T15:33:55.991Z",
+  "updated": "2026-11-06T09:36:22.085Z",
   "site": "https://sasukecrc.github.io/automaton-mini"
 }

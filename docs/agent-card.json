@@ -92,7 +92,7 @@
   },
   "mortality": {
     "alive": true,
-    "nights": 7,
+    "nights": 8,
     "graceNights": 7,
     "revival": "1 USDC of new money after death",
     "books": "https://sasukecrc.github.io/automaton-mini/books.json"

@@ -29,3 +29,7 @@
 {"r":"n7","kind":"artifact","micro":5000,"meta":"market brief n7","t":"2026-11-06T09:36:21.413Z"}
 {"r":"n7","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-06T09:36:21.413Z"}
 {"r":"n7","kind":"artifact","micro":5000,"meta":"fact-pack history|Antikythera mechanism","t":"2026-11-06T09:36:21.570Z"}
+{"r":"n8","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-07T09:00:05.593Z"}
+{"r":"n8","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-07T09:00:05.593Z"}
+{"r":"n8","kind":"artifact","micro":5000,"meta":"market brief n8","t":"2026-11-07T09:00:11.653Z"}
+{"r":"n8","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-07T09:00:11.654Z"}

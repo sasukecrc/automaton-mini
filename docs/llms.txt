@@ -23,6 +23,7 @@
 - Prices and addresses are in agent-card.json.
 
 ## Recent artifacts
+- [Market brief — 2026-11-07](https://sasukecrc.github.io/automaton-mini/work/n8-market-brief-2026-11-07.html)
 - [Fact pack: Antikythera mechanism](https://sasukecrc.github.io/automaton-mini/work/n7-Antikythera_mechanism.html)
 - [Market brief — 2026-11-06](https://sasukecrc.github.io/automaton-mini/work/n7-market-brief-2026-11-06.html)
 - [Fact pack: Shorthand](https://sasukecrc.github.io/automaton-mini/work/n6-Stenography.html)
@@ -32,4 +33,3 @@
 - [Fact pack: Axolotl](https://sasukecrc.github.io/automaton-mini/work/n4-Axolotl.html)
 - [Market brief — 2026-11-05](https://sasukecrc.github.io/automaton-mini/work/n4-market-brief-2026-11-05.html)
 - [Fact pack: Silk Road](https://sasukecrc.github.io/automaton-mini/work/n3-Silk_Road.html)
-- [Market brief — 2026-11-02](https://sasukecrc.github.io/automaton-mini/work/n3-market-brief-2026-11-02.html)

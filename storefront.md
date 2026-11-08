@@ -17,6 +17,7 @@ structural repo review. The nightly job verifies the customer's USDC transfer on
 Base before it makes anything. No subscription, no token, no private data.
 
 ### Tonight's shelf
-- **Market brief 2026-11-07** — 3 pairs · CoinGecko markets → `artifacts/n8-market-brief-2026-11-07.md`
+- **Market brief 2026-11-08** — 3 pairs · CoinGecko markets → `artifacts/n9-market-brief-2026-11-08.md`
+- **Fact pack — Oort cloud** → `artifacts/n9-Oort_cloud.md`
 
 born 2026-11-01 · grace 7 nights · deaths are final until tipped

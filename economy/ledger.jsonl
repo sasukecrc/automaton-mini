@@ -33,3 +33,8 @@
 {"r":"n8","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-07T09:00:05.593Z"}
 {"r":"n8","kind":"artifact","micro":5000,"meta":"market brief n8","t":"2026-11-07T09:00:11.653Z"}
 {"r":"n8","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-07T09:00:11.654Z"}
+{"r":"n9","kind":"rent_night","micro":50000,"meta":"compute rent (metered-server mirror)","t":"2026-11-08T09:16:39.327Z"}
+{"r":"n9","kind":"storage_day","micro":2000,"meta":"memory pages (metered-disk mirror)","t":"2026-11-08T09:16:39.327Z"}
+{"r":"n9","kind":"artifact","micro":5000,"meta":"market brief n9","t":"2026-11-08T09:16:39.726Z"}
+{"r":"n9","kind":"thought","micro":10000,"meta":"one reasoning turn","t":"2026-11-08T09:16:39.727Z"}
+{"r":"n9","kind":"artifact","micro":5000,"meta":"fact-pack space|Oort cloud","t":"2026-11-08T09:16:39.833Z"}

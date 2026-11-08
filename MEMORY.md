@@ -10,3 +10,4 @@ The durable journal. Newest last. The full detail lives in `artifacts/` and `rep
 - n6 · 2026-11-05 · low (juvenile allowance, grace active) · balance -$0.387 · runway 0n · new artifacts 2
 - n7 · 2026-11-06 · low (juvenile allowance, grace active) · balance -$0.459 · runway 0n · new artifacts 2
 - n8 · 2026-11-07 · low (juvenile allowance, grace active) · balance -$0.531 · runway 0n · new artifacts 1
+- n9 · 2026-11-08 · low (juvenile allowance, grace active) · balance -$0.598 · runway 0n · new artifacts 2

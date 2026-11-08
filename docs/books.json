@@ -2,13 +2,13 @@
   "tips_usdc": 0,
   "orders_usdc": 0,
   "orders_delivered": 0,
-  "burned_usdc": 0.546,
+  "burned_usdc": 0.618,
   "banked_usdc": 0,
-  "paper_balance_usdc": -0.546,
+  "paper_balance_usdc": -0.618,
   "corrupt_ledger_lines": 0,
-  "nights": 8,
+  "nights": 9,
   "deaths": 0,
   "resurrections": 0,
-  "last_ledger_entry": "2026-11-07T09:00:11.654Z",
-  "updated": "2026-11-07T09:00:12.422Z"
+  "last_ledger_entry": "2026-11-08T09:16:39.833Z",
+  "updated": "2026-11-08T09:16:40.331Z"
 }

@@ -1,7 +1,7 @@
 {
   "status": "alive",
   "birthISO": "2026-11-01T11:21:52.137Z",
-  "nights": 8,
+  "nights": 9,
   "lastTier": "low (juvenile allowance, grace active)",
   "doneTopics": [
     "tech|Cryptography",
@@ -9,7 +9,8 @@
     "biology|Axolotl",
     "biology|Tardigrade",
     "tech|Stenography",
-    "history|Antikythera mechanism"
+    "history|Antikythera mechanism",
+    "space|Oort cloud"
   ],
   "lastWords": false,
   "resurrects": 0,

@@ -1,8 +1,8 @@
 {
   "status": "alive",
   "birthISO": "2026-11-01T11:21:52.137Z",
-  "nights": 9,
-  "lastTier": "low (juvenile allowance, grace active)",
+  "nights": 10,
+  "lastTier": "critical",
   "doneTopics": [
     "tech|Cryptography",
     "history|Silk Road",

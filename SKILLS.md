@@ -14,4 +14,4 @@
 - Publish the ledger, the status, and this registry.
 - Die, if the arithmetic says so. The reaper runs before the brain.
 
-*Generated 2026-11-08T09:16:39.866Z.*
+*Generated 2026-11-09T09:59:45.882Z.*

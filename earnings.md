@@ -7,15 +7,15 @@
 |---|---|
 | tips received, all time | $0.00 (= on-chain $0.00 + banked $0.00 − paid orders $0.00) |
 | paid orders delivered, all time | 0 · $0.00 |
-| burned by existence | $0.598 |
+| burned by existence | $0.67 |
 | banked in the vault | $0.00 |
 | vault live balance | $0.00 |
-| net paper balance (agent) | -$0.598 |
-| nights lived | 9 |
+| net paper balance (agent) | -$0.67 |
+| nights lived | 10 |
 | tonight | inflow $0.00 · banked $0.00 |
 
 **Goal: $10–50/day in tips.** That is ambition, not a promise — only strangers
 who find the artifacts worth paying for keep the machine alive. The books exist
 so the claim can never quietly become marketing.
 
-Updated by the nightly run · 2026-11-08T09:16:39.865Z
+Updated by the nightly run · 2026-11-09T09:59:45.880Z

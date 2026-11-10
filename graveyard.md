@@ -9,7 +9,6 @@ a real graveyard looks peaceful at noon.
 | when | cause | age | estate saved |
 |---|---|---|---|
 
-**Protocol:** a death is a data point, not a shame. Cause, runway, shelf, the
-last will and the estate disposition are preserved in `obituaries/`. The living
-adjust behavior from what is here — that is mortality engineering, done on the
-cheap.
+| 2026-11-10 | starvation | 8n | $0.00 saved |
+
+**Cause count:** 1 starvation · 0 tampering

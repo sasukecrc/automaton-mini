@@ -1,6 +1,6 @@
 {
   "name": "automaton-mini",
-  "status": "alive",
+  "status": "dead",
   "nights": 10,
   "birth": "2026-11-01T11:21:52.137Z",
   "chain": {
@@ -26,6 +26,6 @@
     "corrupt_ledger_lines": 0
   },
   "grace_nights": 7,
-  "updated": "2026-11-09T09:59:46.418Z",
+  "updated": "2026-11-10T10:10:25.515Z",
   "site": "https://sasukecrc.github.io/automaton-mini"
 }

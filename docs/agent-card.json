@@ -91,7 +91,7 @@
     "settlement": "Payment is verified on-chain before work. One transfer buys one artifact. No refunds."
   },
   "mortality": {
-    "alive": true,
+    "alive": false,
     "nights": 10,
     "graceNights": 7,
     "revival": "1 USDC of new money after death",

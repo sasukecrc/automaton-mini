@@ -1,5 +1,5 @@
 {
-  "status": "alive",
+  "status": "dead",
   "birthISO": "2026-11-01T11:21:52.137Z",
   "nights": 10,
   "lastTier": "critical",
@@ -14,5 +14,8 @@
   ],
   "lastWords": false,
   "resurrects": 0,
-  "will": true
+  "will": true,
+  "deathAt": "2026-11-10T10:10:25.404Z",
+  "deathCause": "starvation",
+  "deathLeftoverMicro": 0
 }

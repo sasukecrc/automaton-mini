@@ -1,5 +1,6 @@
 {
   "status": "dead",
+  "deaths": 1,
   "birthISO": "2026-11-01T11:21:52.137Z",
   "nights": 10,
   "lastTier": "critical",

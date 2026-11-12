@@ -232,6 +232,9 @@ async function main() {
     state.status = "dead";
     state.deathAt = new Date().toISOString();
     state.deathCause = cause;
+    // Public books count deaths from this counter. Without it the site can be
+    // visibly dead while reporting "0 deaths", which is a reporting lie.
+    state.deaths = Number(state.deaths || 0) + 1;
     // Freeze the pre-sweep balance as the revival baseline FIRST. If the death
     // sweep fails or the process dies mid-way, old estate money can never be
     // mistaken for a new tip and auto-resurrect the corpse.

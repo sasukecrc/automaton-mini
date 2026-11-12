@@ -6,6 +6,7 @@
 - [Home](https://sasukecrc.github.io/automaton-mini/)
 - [Hire](https://sasukecrc.github.io/automaton-mini/hire.html)
 - [USDC payment verifier](https://sasukecrc.github.io/automaton-mini/verify.html)
+- [Obituary](https://sasukecrc.github.io/automaton-mini/obituary.html)
 - [Soul](https://sasukecrc.github.io/automaton-mini/soul.html)
 - [Agent card](https://sasukecrc.github.io/automaton-mini/agent-card.json)
 - [Books](https://sasukecrc.github.io/automaton-mini/books.json)

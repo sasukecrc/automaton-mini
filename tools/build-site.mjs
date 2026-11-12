@@ -16,6 +16,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, "docs");
 const ARTIFACTS = path.join(ROOT, "artifacts");
+const OBITUARIES = path.join(ROOT, "obituaries");
 const ECO = path.join(ROOT, "economy");
 
 const REPO = (process.env.AUTOMATON_REPO_URL || "").replace(/\/$/, "");
@@ -227,6 +228,22 @@ async function loadArtifacts() {
   return items.sort((a, b) => b.date - a.date);
 }
 
+async function loadObituaries() {
+  let names = [];
+  try { names = (await fs.readdir(OBITUARIES)).filter((n) => n.endsWith(".md")); } catch { return []; }
+  const items = [];
+  for (const name of names) {
+    let md = "";
+    try { md = await fs.readFile(path.join(OBITUARIES, name), "utf8"); } catch { continue; }
+    const h1 = md.match(/^#\s+(.+)$/m)?.[1]?.trim() || "Obituary";
+    const iso = md.match(/\b(20\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)\b/)?.[1] || null;
+    const cause = name.replace(/\.md$/, "").split("-").pop() || "unknown";
+    const slug = name.replace(/\.md$/, "").replace(/[^a-zA-Z0-9._-]+/g, "-");
+    items.push({ name, slug, md, title: h1, iso, cause, date: iso ? Date.parse(iso) : 0 });
+  }
+  return items.sort((a, b) => b.date - a.date);
+}
+
 /* ---------------------------------------------------------------- layout */
 
 function layout({ title, desc, canonical, body, active = "", base = "", jsonLd = null }) {
@@ -308,7 +325,8 @@ function indexPage({ state, wallet, treasury, totals, artifacts, generatedAt, gr
       <div>
         <h3 style="margin-bottom:6px">It is dead.</h3>
         <p style="margin-bottom:0">The reaper ended it at night ${nights}. Its estate was swept to the vault before the obituary.
-        Only <strong style="color:var(--text)">$1 of new USDC</strong> brings it back — its own savings cannot.</p>
+        Only <strong style="color:var(--text)">$1 of new USDC</strong> brings it back — its own savings cannot.
+        <a href="obituary.html">Read the obituary →</a></p>
       </div>
       <div class="tip-side"><div class="big"><span>${fmtUSD(1_000_000)}</span> revives it</div><div class="fine">Send to the tip jar. The next nightly run checks the chain.</div></div>
     </div>
@@ -592,6 +610,84 @@ function articlePage(a) {
     <button type="button" data-copy="${esc(pageUrl)}">copy link</button>
   </div>
 </main>`,
+  });
+}
+
+function obituaryPage({ obit, wallet, artifactCount }) {
+  const title = `Obituary: ${obit.cause} on ${fmtDate(obit.iso)}`;
+  // The raw record tells the owner how to import the offline vault key. That
+  // instruction is useless (and unsafe to imply) on a public page, so replace
+  // it with the public fact: the key is never in this repository.
+  const publicMd = obit.md.replace(
+    /\*\*How to collect:\*\*[\s\S]*?that was the design\.\s*/,
+    "_The vault key is held offline by the owner and is never committed to this repository. Every sweep is recorded in the public ledger._\n\n"
+  ).replace(
+    /\*\*What it tried to sell:\*\*\s*\n\(nothing[^\n]*\)/i,
+    "**What it tried to sell:** a $2 market brief, a $2 sourced fact pack and a $5 structural repo review. The menu is still public."
+  );
+  const body = `
+<main class="article wrap">
+  <a class="back" href="index.html">← home</a>
+  <div class="meta">OBITUARY · ${esc(fmtDate(obit.iso))} · ${esc(String(obit.cause).toUpperCase())}</div>
+  <h1>${esc(title)}</h1>
+  <p class="lede" style="max-width:74ch">
+    This machine is dead. It paid rent in USDC on Base every night it existed, and it stopped when the
+    money ran out. The books are public, including the zero. This page is the record, not a sales pitch.
+  </p>
+
+  <article class="prose">${renderMarkdown(publicMd.replace(/^#\s+.+$/m, ""))}</article>
+
+  <div class="tip" style="grid-template-columns:1fr">
+    <div>
+      <h3>Revive it with $1 of new USDC.</h3>
+      <p>
+        Send USDC on Base to the agent wallet. The next nightly run compares the balance to the death
+        baseline; <strong>$1.00 or more of new money</strong> resurrects it. Less than $1 stays on the
+        wallet and does not revive it. Its own vault savings are deliberately excluded.
+      </p>
+      <div class="addr">
+        <code>${esc(wallet?.address || "—")}</code>
+        <button class="copy" data-copy="${esc(wallet?.address || "")}" aria-label="Copy agent address">copy</button>
+      </div>
+      <span class="net">● Base mainnet · USDC only</span>
+      <p class="small" style="margin:14px 0 0">
+        <a href="verify.html">Verify the transfer</a> ·
+        ${wallet?.address ? `<a href="${CHAIN.explorer}/address/${esc(wallet.address)}" rel="noopener">View the wallet on BaseScan ↗</a>` : ""}
+      </p>
+    </div>
+    <div class="tip-side">
+      <div class="big"><span>${fmtUSD(1_000_000)}</span> minimum</div>
+      <div class="fine">50% of every dollar received is swept to the vault once the sweep minimum is reached. The rest pays rent and produces work.</div>
+    </div>
+  </div>
+
+  <div class="tip-after">
+    <p>It made ${fmtInt(artifactCount)} public artifacts before it died. They are still free to read.</p>
+    <div>
+      <a class="btn primary" href="work/index.html">Read the work <span class="arrow">→</span></a>
+      <a class="btn" href="hire.html">See what it sold <span class="arrow">→</span></a>
+    </div>
+  </div>
+</main>`;
+
+  return layout({
+    title,
+    desc: `Obituary of automaton-mini: it died of ${obit.cause} on ${fmtDate(obit.iso)}. Public books, last ledger, and the $1 USDC revival rule.`,
+    canonical: SITE_URL ? `${SITE_URL}/obituary.html` : "",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description: `The machine died of ${obit.cause} on ${fmtDate(obit.iso)}.`,
+      datePublished: obit.iso || undefined,
+      dateModified: obit.iso || undefined,
+      author: { "@type": "Organization", name: "automaton-mini", url: REPO || undefined },
+      publisher: { "@type": "Organization", name: "automaton-mini", url: REPO || undefined },
+      mainEntityOfPage: SITE_URL ? `${SITE_URL}/obituary.html` : undefined,
+      isAccessibleForFree: true,
+      about: obit.cause,
+    },
+    body,
   });
 }
 
@@ -1036,7 +1132,7 @@ function agentCard({ wallet, treasury, catalog, state }) {
   };
 }
 
-function sitemap(artifacts) {
+function sitemap(artifacts, obits = []) {
   if (!SITE_URL) return null;
   const urls = [
     { loc: `${SITE_URL}/`, lastmod: new Date().toISOString().slice(0, 10) },
@@ -1044,6 +1140,7 @@ function sitemap(artifacts) {
     { loc: `${SITE_URL}/verify.html`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/soul.html`, lastmod: new Date().toISOString().slice(0, 10) },
     { loc: `${SITE_URL}/work/`, lastmod: new Date().toISOString().slice(0, 10) },
+    ...(obits.length ? [{ loc: `${SITE_URL}/obituary.html`, lastmod: obits[0].iso ? obits[0].iso.slice(0, 10) : undefined }] : []),
     ...artifacts.map((a) => ({ loc: `${SITE_URL}/work/${a.slug}.html`, lastmod: a.iso ? a.iso.slice(0, 10) : undefined })),
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -1057,7 +1154,7 @@ function robots() {
   return `User-agent: *\nAllow: /\n${SITE_URL ? `Sitemap: ${SITE_URL}/sitemap.xml\n` : ""}`;
 }
 
-function llmsTxt(catalog, artifacts) {
+function llmsTxt(catalog, artifacts, obituaries = []) {
   const products = catalog?.products || [];
   return [
     "# automaton-mini",
@@ -1068,6 +1165,7 @@ function llmsTxt(catalog, artifacts) {
     SITE_URL ? `- [Home](${SITE_URL}/)` : "- Home",
     SITE_URL ? `- [Hire](${SITE_URL}/hire.html)` : "- Hire",
     SITE_URL ? `- [USDC payment verifier](${SITE_URL}/verify.html)` : "- Verify",
+    ...(obituaries.length ? [SITE_URL ? `- [Obituary](${SITE_URL}/obituary.html)` : "- Obituary"] : []),
     SITE_URL ? `- [Soul](${SITE_URL}/soul.html)` : "- Soul",
     SITE_URL ? `- [Agent card](${SITE_URL}/agent-card.json)` : "- Agent card",
     SITE_URL ? `- [Books](${SITE_URL}/books.json)` : "- Books",
@@ -1125,6 +1223,7 @@ const inflows = onchain + swept;
 const tips = inflows > ordersRevenue ? inflows - ordersRevenue : 0n;
 const generatedAt = new Date().toISOString();
 const artifacts = await loadArtifacts();
+const obituaries = await loadObituaries();
 const catalog = await readJSON(path.join(ECO, "catalog.json"), { products: [] });
 const soul = await fs.readFile(path.join(ROOT, "SOUL.md"), "utf8").catch(() => "");
 
@@ -1162,6 +1261,7 @@ await fs.writeFile(path.join(OUT, "index.html"), indexPage({ state, wallet, trea
 await fs.writeFile(path.join(OUT, "hire.html"), hirePage({ wallet, catalog, ordersData }), "utf8");
 await fs.writeFile(path.join(OUT, "verify.html"), verifyPage({ wallet }), "utf8");
 await fs.writeFile(path.join(OUT, "soul.html"), soulPage({ soul, state, wallet, treasury }), "utf8");
+if (obituaries.length) await fs.writeFile(path.join(OUT, "obituary.html"), obituaryPage({ obit: obituaries[0], wallet, artifactCount: artifacts.length }), "utf8");
 await fs.writeFile(path.join(OUT, "agent-card.json"), JSON.stringify(agentCard({ wallet, treasury, catalog, state }), null, 2) + "\n", "utf8");
 
 for (const a of artifacts) {
@@ -1170,10 +1270,10 @@ for (const a of artifacts) {
 await fs.writeFile(path.join(OUT, "work", "index.html"), workArchivePage(artifacts), "utf8");
 
 await fs.writeFile(path.join(OUT, "feed.xml"), feed(artifacts), "utf8");
-const sm = sitemap(artifacts);
+const sm = sitemap(artifacts, obituaries);
 if (sm) await fs.writeFile(path.join(OUT, "sitemap.xml"), sm, "utf8");
 await fs.writeFile(path.join(OUT, "robots.txt"), robots(), "utf8");
-await fs.writeFile(path.join(OUT, "llms.txt"), llmsTxt(catalog, artifacts), "utf8");
+await fs.writeFile(path.join(OUT, "llms.txt"), llmsTxt(catalog, artifacts, obituaries), "utf8");
 
 const status = {
   name: "automaton-mini",

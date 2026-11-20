@@ -1,6 +1,6 @@
 # Adversarial defense suite — death condition + money guards
 
-- **When:** 2026-11-19T10:33:58.656Z
+- **When:** 2026-11-20T10:15:20.569Z
 - **Result:** 8/8 defenses held
 - **Chain:** verifying mock of Base (no real funds)
 
